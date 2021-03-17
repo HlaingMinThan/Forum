@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class ThreadController extends Controller
 {
+    public function __construct(){
+        $this->middleware("auth")->except('index','show');
+    }
     public function index(){
         $threads=Thread::latest()->get();
         return view("threads.index",compact('threads'));
@@ -23,7 +26,6 @@ class ThreadController extends Controller
         return redirect($thread->path());
     }
     public function show(Thread $thread){
-        // return 'hi';
         return view("threads.show",compact('thread'));
     }
 }

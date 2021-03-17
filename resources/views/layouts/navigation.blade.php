@@ -7,18 +7,21 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('threads.index')" :active="request()->routeIs('dashboard')" class="text-2xl">
+                    <x-nav-link :href="route('threads.index')" :active="request()->routeIs('threads.index')" class="text-2xl">
                         Forum App
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('threads.create')" :active="request()->routeIs('dashboard')" class="text-2xl">
+               @auth
+               <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('threads.create')" :active="request()->routeIs('threads.create')" class="text-2xl">
                         Add New Thread
                     </x-nav-link>
                 </div>
+                @endauth
             </div>
 
             <!-- Settings Dropdown -->
+            @auth
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -47,7 +50,15 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            @endauth
 
+            @guest
+            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+
+                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+            </div>
+            @endguest
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
@@ -77,10 +88,13 @@
                     </svg>
                 </div>
 
-                <div class="ml-3">
+                 @auth
+               <div class="ml-3">
                     <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
+                @endauth
+
             </div>
 
             <div class="mt-3 space-y-1">
