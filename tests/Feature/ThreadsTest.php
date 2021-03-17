@@ -2,13 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Models\Reply;
 use App\Models\Thread;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use phpDocumentor\Reflection\Types\Parent_;
 use Tests\TestCase;
 
 class ThreadsTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations,RefreshDatabase;
+
     /**
      * A basic test example.
      *
