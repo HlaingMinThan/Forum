@@ -19,6 +19,10 @@ class ThreadController extends Controller
         return view('threads.create');
     }
     public function store(){
+        request()->validate([
+            'title'=>"required",
+            'body'=>"required",
+        ]);
         $thread=Thread::create([
             'user_id'=>auth()->id(),
             'title'=>request("title"),

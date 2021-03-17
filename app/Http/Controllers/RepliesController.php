@@ -12,6 +12,9 @@ class RepliesController extends Controller
     }
     
     public function store(Thread $thread){
+            request()->validate([
+                "body"=>'required'
+            ]);
             $thread->addReply([
                 'body'=>request('body'),
                 'user_id'=>auth()->user()->id
