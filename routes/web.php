@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get("/threads",[ThreadController::class,'index']);
-Route::get("/threads/{thread}",[ThreadController::class,'show']);
-
+Route::get("/threads",[ThreadController::class,'index'])->name('threads.index');
+Route::get("/threads/{thread}",[ThreadController::class,'show'])->name('threads.show');
+Route::post("/threads/{thread}/replies",[RepliesController::class,"store"])->name('replies.store');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

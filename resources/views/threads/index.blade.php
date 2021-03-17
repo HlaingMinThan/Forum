@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     @foreach($threads as $thread)
                         <article class="p-5">
-                            <h1 class="text-3xl text-blue-600"><a href="{{$thread->path()}}">{{$thread->title}}</a></h1>
+                            <h1 class="text-2xl text-green-00"><a href="" class="text-2xl text-blue-400">{{$thread->creator->name}}</a> post<a href="{{$thread->path()}}">{{$thread->title}}</a></h1>
                             <p>{{$thread->body}}</p><hr>
                         </article>
                     @endforeach
