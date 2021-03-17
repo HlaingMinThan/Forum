@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('threads',ThreadController::class);
-
+Route::get("/threads",[ThreadController::class,'index'])->name('threads.index');
+Route::get("/threads/create",[ThreadController::class,"create"])->name('threads.create');
+Route::post("/threads/store",[ThreadController::class,"store"])->name('threads.store');
+Route::get("/threads/{channel}/{thread}",[ThreadController::class,'show'])->name('threads.show');
 Route::post("/threads/{thread}/replies",[RepliesController::class,"store"])->name('replies.store');
 Route::get('/dashboard', function () {
     return view('dashboard');
