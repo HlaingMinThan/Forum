@@ -23,6 +23,9 @@ class ThreadController extends Controller
             $userId=User::where("name",$username)->firstOrFail()->id;
             $threads=Thread::where("user_id",$userId)->latest();
         }
+        if(request('popular')){
+            $threads = Thread::withCount('replies')->orderBy("replies_count","desc");
+        }
            $threads=$threads->get();
         return view("threads.index",compact('threads'));
     }
@@ -48,7 +51,7 @@ class ThreadController extends Controller
         
         return view("threads.show",[
             'thread'=>$thread,
-            'replies'=>$thread->replies()->latest()->paginate(10)
+            'replies'=>$thread->replies()->latest()->paginate(5)
         ]);
     }
 }

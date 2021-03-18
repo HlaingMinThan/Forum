@@ -39,7 +39,11 @@
                             >
                                 My Questions
                             </x-dropdown-link>      
-                            @endauth          
+                            @endauth    
+                            <x-dropdown-link href="/threads?popular=1"
+                            >
+                                Popular Threads
+                            </x-dropdown-link>      
                     </x-slot>
                 </x-dropdown>
                 </div>
