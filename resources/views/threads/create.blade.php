@@ -15,13 +15,13 @@
                             <p class="text-base  text-red-400" id="result">{{$message}}</p>
                             @enderror
                             <div class="mb-6">
-                                <input name="title" placeholder="Your Thread Title" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" ></input>
+                                <input name="title" value="{{old('title')}}" placeholder="Your Thread Title" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" ></input>
                             </div>
                             @error("body")
                             <p class="text-base  text-red-400" id="result">{{$message}}</p>
                             @enderror
                             <div class="mb-6">
-                                <textarea rows="5" name="body" id="message" placeholder="Your body" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" ></textarea>
+                                <textarea rows="5" name="body" id="message" placeholder="Your body" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" >{{old('body')}}</textarea>
                             </div>
                            
                             <div class="mb-6">
