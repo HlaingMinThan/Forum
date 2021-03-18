@@ -11,10 +11,16 @@ class ThreadController extends Controller
     public function __construct(){
         $this->middleware("auth")->except('index','show');
     }
-    public function index(){
-        $threads=Thread::latest()->get();
+    public function index($channelSlug=null){
+        if($channelSlug){
+            $channelId=Channel::whereSlug($channelSlug)->first()->id;
+            $threads=Thread::where("channel_id",$channelId)->latest()->get();
+        }else{
+            $threads=Thread::latest()->get();
+        }
         return view("threads.index",compact('threads'));
     }
+
     public function create(){
         return view('threads.create');
     }
@@ -30,7 +36,7 @@ class ThreadController extends Controller
         ]);
         return redirect($thread->path());
     }
-    public function show($channelName,Thread $thread){
+    public function show($channelSlug,Thread $thread){
         return view("threads.show",compact('thread'));
     }
 }
