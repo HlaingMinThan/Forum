@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Channel;
+use App\Models\Reply;
 use App\Models\Thread;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,16 +18,17 @@ class ThreadController extends Controller
             $channelId=Channel::whereSlug($channelSlug)->firstOrFail()->id;
             $threads=Thread::where("channel_id",$channelId)->latest();
         }else{
-            $threads=Thread::latest();
+            $threads=Thread::withCount("replies")->latest();
         }
         if($username=request('by')){
             $userId=User::where("name",$username)->firstOrFail()->id;
-            $threads=Thread::where("user_id",$userId)->latest();
+            $threads=Thread::withCount('replies')->where("user_id",$userId)->latest();
         }
         if(request('popular')){
             $threads = Thread::withCount('replies')->orderBy("replies_count","desc");
         }
            $threads=$threads->get();
+        //    dd($threads->toArray());
         return view("threads.index",compact('threads'));
     }
 
@@ -48,10 +50,9 @@ class ThreadController extends Controller
         return redirect($thread->path());
     }
     public function show($channelSlug,Thread $thread){
-        
         return view("threads.show",[
             'thread'=>$thread,
-            'replies'=>$thread->replies()->latest()->paginate(5)
+            'replies'=>$thread->replies()->with('owner')->withCount('favorites')->latest()->paginate(5)
         ]);
     }
 }

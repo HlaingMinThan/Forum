@@ -16,7 +16,7 @@
                                     <a href="{{$thread->path()}}">{{$thread->title}}</a>
                                 </div>
                                 <div>
-                                    <a href="{{$thread->path()}}" class="text-lg">Replies-{{$thread->getReplyCount()}}</a>
+                                    <a href="{{$thread->path()}}" class="text-lg">Replies-{{$thread->replies_count}}</a>
                                 </div>
                             </div>
                             <p class="mt-5">{{$thread->body}}</p><hr>

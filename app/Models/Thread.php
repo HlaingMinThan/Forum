@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Thread extends Model
 {
     protected $guarded=[];
+    protected $with=['channel'];
     use HasFactory;
     public function path(){
         return "/threads/{$this->channel->slug}/$this->id";
@@ -18,9 +19,9 @@ class Thread extends Model
     public function replies(){
        return  $this->hasMany(Reply::class);
     }
-    public function getReplyCount(){
-        return $this->replies()->count(); //don't forget to add replies parentheses ,if dont't add parentheses the query is run again
-    }
+    // public function getReplyCount(){
+    //     return $this->replies()->count(); //don't forget to add replies parentheses ,if dont't add parentheses the query is run again
+    // }
     public function creator(){
         return $this->belongsTo(User::class,'user_id');
     }
