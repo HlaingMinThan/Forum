@@ -28,11 +28,13 @@ class ThreadController extends Controller
         request()->validate([
             'title'=>"required",
             'body'=>"required",
+            'channel_id'=>"required|exists:channels,id"
         ]);
         $thread=Thread::create([
             'user_id'=>auth()->id(),
             'title'=>request("title"),
             'body'=>request("body"),
+            'channel_id'=>request("channel_id"),
         ]);
         return redirect($thread->path());
     }

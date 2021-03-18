@@ -23,7 +23,17 @@
                             <div class="mb-6">
                                 <textarea rows="5" name="body" id="message" placeholder="Your body" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" >{{old('body')}}</textarea>
                             </div>
-                           
+                            <div class="mb-6">
+                                <select  name="channel_id" id="message" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" >
+                                        <option value="">Choose One...</option>
+                                    @foreach(App\Models\Channel::all() as $channel)
+                                        <option value="{{$channel->id}}" {{old('channel_id')==$channel->id ?'selected':''}}>{{$channel->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error("channel_id")
+                            <p class="text-base  text-red-400" id="result">{{$message}}</p>
+                            @enderror
                             <div class="mb-6">
                                 <button type="submit" class="w-full px-3 py-4 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none">Add Thread</button>
                             </div>
