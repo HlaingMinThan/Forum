@@ -31,7 +31,7 @@
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        @foreach(App\Models\Channel::all() as $channel)
+                        @foreach($channels as $channel)
                             <x-dropdown-link :href="route('channel.index',$channel->slug)"
                             >
                                 {{$channel->name}}
