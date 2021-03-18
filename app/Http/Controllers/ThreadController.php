@@ -45,6 +45,10 @@ class ThreadController extends Controller
         return redirect($thread->path());
     }
     public function show($channelSlug,Thread $thread){
-        return view("threads.show",compact('thread'));
+        
+        return view("threads.show",[
+            'thread'=>$thread,
+            'replies'=>$thread->replies()->latest()->paginate(10)
+        ]);
     }
 }
