@@ -16,7 +16,7 @@
                         <div class="bg-grey-300 border border-gray-300">
                             @foreach($thread->replies as $reply)
                                <div class="bg-gray-100 p-5">
-                                    <p><a href="" class="text-blue-600">{{$reply->owner->name}}</a> said {{$reply->created_at->diffForHumans()}}</p>
+                                    <p><a href="/threads?by={{$reply->owner->name}}" class="text-blue-600">{{$reply->owner->name}}</a> said {{$reply->created_at->diffForHumans()}}</p>
                                     <p class="m-3"> {{$reply->body}}</p>
                                </div><hr>
                             @endforeach
