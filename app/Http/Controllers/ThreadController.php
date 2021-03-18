@@ -14,7 +14,7 @@ class ThreadController extends Controller
     }
     public function index($channelSlug=null){
         if($channelSlug){
-            $channelId=Channel::whereSlug($channelSlug)->first()->id;
+            $channelId=Channel::whereSlug($channelSlug)->firstOrFail()->id;
             $threads=Thread::where("channel_id",$channelId)->latest();
         }else{
             $threads=Thread::latest();
