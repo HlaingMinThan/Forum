@@ -56,7 +56,7 @@ class ThreadController extends Controller
         ]);
     }
     public function destroy($channelSlug=null,Thread $thread){
-        // dd($thread);
+        $this->authorize('update',$thread);
         $thread->replies()->delete();
         $thread->delete();
         return redirect()->route("threads.index");
