@@ -9,12 +9,12 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                         <article class="m-3">
                             <h2 class="font-semibold text-3xl text-gray-800 text-center">{{$thread->title}}</h2>
-                            <p>{{$thread->body}}</p>
+                            <p class="mt-5">{{$thread->body}}</p>
                         </article>
-                            <h2 class="text-3xl ml-2 my-5">Replies</h2>
-                        <div class="bg-grey-300 border border-gray-300">
-                            @foreach($replies as $reply)
-                               <div class="bg-gray-100 p-5">
+                            <h2 class="text-2xl ml-2 my-5">Replies</h2>
+                        <div class="bg-grey-300  border-gray-300">
+                            @forelse($replies as $reply)
+                               <div class="bg-gray-100 p-5 border border-b-1">
                                     <div class="flex justify-between items-center">
                                         <p><a href="{{route('profiles.show',$thread->creator->name)}}" class="text-blue-600">{{$reply->owner->name}}</a> said {{$reply->created_at->diffForHumans()}}</p>
                                         @auth
@@ -30,8 +30,10 @@
                                         @endauth
                                     </div>
                                     <p class="m-3"> {{$reply->body}}</p>
-                               </div><hr>
-                            @endforeach
+                               </div>
+                            @empty
+                            <h1 class="ml-2">No Replies Yet !!!</h1>
+                            @endforelse
                             {{$replies->links()}}
                         </div>
                        @auth
