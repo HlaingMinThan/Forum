@@ -25,6 +25,7 @@ Route::get("/threads/create",[ThreadController::class,"create"])->name('threads.
 Route::get("/threads/{channel}",[ThreadController::class,'index'])->name('channel.index');
 Route::post("/threads/store",[ThreadController::class,"store"])->name('threads.store');
 Route::get("/threads/{channel}/{thread}",[ThreadController::class,'show'])->name('threads.show');
+Route::delete("/threads/{channel}/{thread}",[ThreadController::class,'destroy'])->name('threads.destroy');
 Route::post("/threads/{thread}/replies",[RepliesController::class,"store"])->name('replies.store');
 Route::post("/replies/{reply}/favorite",[FavoriteController::class,"store"])->name('favorites.store');
 Route::get('/profiles/{user}',[ProfilesController::class,'show'])->name("profiles.show");

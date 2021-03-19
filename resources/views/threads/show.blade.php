@@ -8,35 +8,22 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                         <article class="m-3">
-                            <h2 class="font-semibold text-3xl text-gray-800 text-center">{{$thread->title}}</h2>
+                           <div class="flex justify-between">
+                                <h2 class="font-semibold text-3xl text-gray-800 text-center">{{$thread->title}}</h2>
+                                <form action='{{route("threads.destroy",[$thread->channel->slug,$thread->id])}}' method="POST">
+                                    @method("DELETE")
+                                    @csrf
+                                    <button class="p-2 bg-gray-200 rounded-md flex ml-5" type="submit" >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"/></svg>
+                                    </button>
+                                </form>
+                           </div>
                             <p class="mt-5">{{$thread->body}}</p>
                         </article>
                             <h2 class="text-2xl ml-2 my-5">Replies</h2>
                         <div class="bg-grey-300  border-gray-300">
                             @forelse($replies as $reply)
-                               <div class="bg-gray-100 p-5 border border-b-1">
-                                    <div class="flex justify-between items-center">
-                                        <p><a href="{{route('profiles.show',$thread->creator->name)}}" class="text-blue-600">{{$reply->owner->name}}</a> said {{$reply->created_at->diffForHumans()}}</p>
-                                        @auth
-                                        <div>
-                                           <form action='{{route("favorites.store",$reply->id)}}' method="POST">
-                                                @csrf
-                                                <button class="p-2 bg-gray-200 rounded-md flex" type="submit" {{$reply->favorited()?'disabled':''}}>
-                                                    <svg width="24"  height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/></svg>
-                                                    <span class="ml-2">{{$reply->favorites_count}}</span>
-                                                </button>
-                                           </form>
-                                        </div>
-                                        @endauth
-                                        @guest
-                                            <a href="/login" class="p-2 bg-gray-200 rounded-md flex" type="submit" disabled>
-                                                    <svg width="24"  height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/></svg>
-                                                    <span class="ml-2">{{$reply->favorites_count}}</span>
-                                            </a>
-                                        @endguest
-                                    </div>
-                                    <p class="m-3"> {{$reply->body}}</p>
-                               </div>
+                              <x-app.RepliesBox :reply=$reply />
                             @empty
                             <h1 class="ml-2">No Replies Yet !!!</h1>
                             @endforelse

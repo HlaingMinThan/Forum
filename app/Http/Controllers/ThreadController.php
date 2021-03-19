@@ -55,4 +55,10 @@ class ThreadController extends Controller
             'replies'=>$thread->replies()->with('owner')->withCount('favorites')->latest()->paginate(5)
         ]);
     }
+    public function destroy($channelSlug=null,Thread $thread){
+        // dd($thread);
+        $thread->replies()->delete();
+        $thread->delete();
+        return redirect()->route("threads.index");
+    }
 }
