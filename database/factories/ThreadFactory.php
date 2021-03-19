@@ -26,8 +26,8 @@ class ThreadFactory extends Factory
         return [
             "user_id"=>User::factory(),
             "channel_id"=>Channel::factory(),
-            "title"=>$this->faker->title,
-            "body"=>$this->faker->paragraph,
+            "title"=>$this->faker->sentence,
+            "body"=>$this->faker->paragraph(),
         ];
     }
 }

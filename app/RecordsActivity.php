@@ -9,6 +9,7 @@ Trait RecordsActivity{
 
     protected static function booted()//bootRecordsActivity
     {
+        if(auth()->guest()) return;
        foreach(static::getEvents() as $event){
         static::created(function($model) use ($event){
             $model->recordActivity($event);

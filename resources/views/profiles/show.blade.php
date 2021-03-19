@@ -19,7 +19,7 @@
                             @if($activity->type==="created_thread")
                                 <x-profiles.Thread 
                                     :title="$activity->subject->title"
-                                    :body="$activity->subject->title" 
+                                    :body="$activity->subject->body" 
                                     :replyCount="$activity->subject->replies->count()" 
                                     :path="$activity->subject->path()"
                                     :creator="$activity->subject->creator->name"
