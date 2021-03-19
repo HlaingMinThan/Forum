@@ -1,4 +1,4 @@
-<div class="bg-gray-100 p-5 border border-b-1">
+<div class="bg-gray-100 p-5 border border-b-1" id="reply_{{$reply->id}}">
     <div class="flex justify-between items-center">
         <div>
             <p><a href="{{route('profiles.show',$reply->owner->name)}}" class="text-blue-600">{{$reply->owner->name}}</a> said {{$reply->created_at->diffForHumans()}}</p>

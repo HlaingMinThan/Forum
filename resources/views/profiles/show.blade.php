@@ -28,7 +28,13 @@
                             @if($activity->type==="created_reply")
                                 <x-profiles.Reply
                                     :reply="$activity->subject"
-                                    :path="$activity->subject->thread->path()"
+                                    :path="$activity->subject->path()"
+                                />
+                            @endif
+                            @if($activity->type==="created_favorite")
+                                <x-profiles.Favorite
+                                    :title="$activity->subject->favorited->body"
+                                    :path="$activity->subject->favorited->path()"
                                 />
                             @endif
                         @empty
