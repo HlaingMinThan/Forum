@@ -25,7 +25,7 @@
                             <h2 class="text-2xl ml-2 my-5">Replies</h2>
                         <div class="bg-grey-300  border-gray-300">
                             @forelse($replies as $reply)
-                              <x-app.RepliesBox :reply=$reply />
+                              <x-threads.ReplyBox :reply=$reply />
                             @empty
                             <h1 class="ml-2">No Replies Yet !!!</h1>
                             @endforelse

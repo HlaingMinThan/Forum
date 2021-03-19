@@ -13,22 +13,28 @@
                 </h1>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    @forelse($threads as $thread)
-                        <article class="p-5">
-                            <div class="text-2xl text-blue-600 flex justify-between"> 
-                                <div>
-                                    <a href="{{$thread->path()}}">{{$thread->title}}</a>
-                                </div>
-                                <div>
-                                    <a href="{{$thread->path()}}" class="text-lg">Replies-{{$thread->replies_count}}</a>
-                                </div>
-                            </div>
-                            <p class="mt-5">{{$thread->body}}</p><hr>
-                        </article>
-                    @empty
-
-                        <h1>No Threads Post Yet!</h1>
-                    @endforelse
+                    @foreach($activities as $date=>$activitiesByDate)
+                        <h1 class="text-2xl my-6 ml-4 text-blue-400 font-semibold text-right">On {{$date}}</h1>
+                        @forelse($activitiesByDate as $activity)
+                            @if($activity->type==="created_thread")
+                                <x-profiles.Thread 
+                                    :title="$activity->subject->title"
+                                    :body="$activity->subject->title" 
+                                    :replyCount="$activity->subject->replies->count()" 
+                                    :path="$activity->subject->path()"
+                                    :creator="$activity->subject->creator->name"
+                                />
+                            @endif
+                            @if($activity->type==="created_reply")
+                                <x-profiles.Reply
+                                    :reply="$activity->subject"
+                                    :path="$activity->subject->thread->path()"
+                                />
+                            @endif
+                        @empty
+                            <h1>No Threads Post Yet!</h1>
+                        @endforelse
+                    @endforeach
                 </div>
             </div>
         </div>

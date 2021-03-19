@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Thread extends Model
 {
     protected $guarded=[];
-    protected $with=['channel'];
+    protected $with=['channel','replies','creator'];
     use HasFactory,RecordsActivity;
 
     
