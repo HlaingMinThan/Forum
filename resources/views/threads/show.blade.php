@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-3xl text-gray-800 leading-tight text-center">
-        {{$thread->title}}
-        </h2>
+       
     </x-slot>
 
     <div class="p-12 flex">
@@ -10,6 +8,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                         <article class="m-3">
+                            <h2 class="font-semibold text-3xl text-gray-800 text-center">{{$thread->title}}</h2>
                             <p>{{$thread->body}}</p>
                         </article>
                             <h2 class="text-3xl ml-2 my-5">Replies</h2>
@@ -17,7 +16,7 @@
                             @foreach($replies as $reply)
                                <div class="bg-gray-100 p-5">
                                     <div class="flex justify-between items-center">
-                                        <p><a href="/threads?by={{$reply->owner->name}}" class="text-blue-600">{{$reply->owner->name}}</a> said {{$reply->created_at->diffForHumans()}}</p>
+                                        <p><a href="{{route('profiles.show',$thread->creator->name)}}" class="text-blue-600">{{$reply->owner->name}}</a> said {{$reply->created_at->diffForHumans()}}</p>
                                         @auth
                                         <div>
                                            <form action='{{route("favorites.store",$reply->id)}}' method="POST">
@@ -62,12 +61,12 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h1 class="text-center text-lg">About This Thread</h1>
                         <div class="m-3">
-                            <p>-This Thread Was Published on {{$thread->created_at->diffForHumans()}}</p>
-                            <p>-This Thread Was Published By <a href="/threads?by={{$thread->creator->name}}" class="text-blue-600">{{$thread->creator->name}}</a></p>
+                            <p class="mt-2">-This Thread Was Published on {{$thread->created_at->diffForHumans()}}</p>
+                            <p class="mt-2">-This Thread Was Published By <a href="{{route('profiles.show',$thread->creator->name)}}" class="text-blue-600">{{$thread->creator->name}}</a></p>
                             @if($replyCount=$thread->replies->count())
-                            <p>-This Thread Currently Has {{$replyCount}} {{Str::plural('comment',$replyCount)}}</p>
+                            <p class="mt-2">-This Thread Currently Has {{$replyCount}} {{Str::plural('comment',$replyCount)}}</p>
                             @else
-                            <p>This Thread has no comment yet! You can participate it!</p>
+                            <p class="mt-2">This Thread has no comment yet! Anyone can participate it!</p>
                             @endif
                         </div>
                             <a href="{{route('threads.index')}}" class="mt-10 w-full px-2 py-2 text-white bg-blue-500 flex justify-center rounded-md focus:bg-blue-600 focus:outline-none">Go Back To Read All Threads</a>
