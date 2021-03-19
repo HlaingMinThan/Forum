@@ -10,10 +10,13 @@ Trait RecordsActivity{
     protected static function booted()//bootRecordsActivity
     {
        foreach(static::getEvents() as $event){
-        static::created(function($thread) use ($event){
-            $thread->recordActivity($event);
+        static::created(function($model) use ($event){
+            $model->recordActivity($event);
         });
        }
+       static::deleting(function($model){
+        $model->activity()->delete(); // activity method is tn in the  Recordsactivity trait
+        });
     }
     protected static function getEvents(){
         return ['created'];

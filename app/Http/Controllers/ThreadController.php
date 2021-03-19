@@ -57,7 +57,22 @@ class ThreadController extends Controller
     }
     public function destroy($channelSlug=null,Thread $thread){
         $this->authorize('update',$thread);
-        $thread->replies()->delete();
+        /* 
+            $thread->replies()->delete(); //this way not calling on child relations
+        */
+        // Calling On Child Relations
+        // First way
+        foreach($thread->replies as $reply){
+           $reply->delete();
+        }
+        /* Second way
+            $thread->replies->each(function($reply){
+            $reply->delete();
+            }); 
+        /*
+        /* Third Way
+             $thread->replies->each->delete();
+        */
         $thread->delete();
         return redirect()->route("threads.index");
     }
