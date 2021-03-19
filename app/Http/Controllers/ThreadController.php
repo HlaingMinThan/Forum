@@ -47,7 +47,7 @@ class ThreadController extends Controller
             'body'=>request("body"),
             'channel_id'=>request("channel_id"),
         ]);
-        return redirect($thread->path());
+        return redirect($thread->path())->with("flash","A Thread Has Been Created");
     }
     public function show($channelSlug,Thread $thread){
         return view("threads.show",[
