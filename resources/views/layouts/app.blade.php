@@ -18,7 +18,7 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100" id="app">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -41,5 +41,6 @@
                 toastr.success(message,'',{timeOut: 2000});
             }
         </script>
+        <script src="{{asset('js/vue.js')}}"></script>
     </body>
 </html>
