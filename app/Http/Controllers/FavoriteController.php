@@ -13,7 +13,12 @@ class FavoriteController extends Controller
         if(!$reply->favorited()){
             $reply->add_to_favorite();
         }
-        return back();
+    }
+    
+    public function destroy(Reply $reply){
+        if($reply->favorited()){
+            $reply->remove_from_favorite();
+        }
     }
 
 }

@@ -30,6 +30,7 @@ Route::post("/threads/{thread}/replies",[RepliesController::class,"store"])->nam
 Route::delete("/replies/{reply}",[RepliesController::class,"destroy"])->name('replies.destroy');
 Route::patch("/replies/{reply}",[RepliesController::class,"update"])->name('replies.update');
 Route::post("/replies/{reply}/favorite",[FavoriteController::class,"store"])->name('favorites.store');
+Route::delete("/replies/{reply}/favorite",[FavoriteController::class,"destroy"])->name('favorites.destroy');
 Route::get('/profiles/{user}',[ProfilesController::class,'show'])->name("profiles.show");
 
 Route::get('/dashboard', function () {

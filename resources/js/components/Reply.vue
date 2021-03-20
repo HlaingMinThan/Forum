@@ -1,7 +1,9 @@
 <script>
+import Favorite from "./Favorite.vue";
 import Axios from "axios";
     export default {
         props:['reply'],
+        components:{Favorite},
         data() {
             return{
                 editor:false,

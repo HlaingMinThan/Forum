@@ -11,6 +11,11 @@ class Reply extends Model
     use HasFactory,RecordsActivity;
     
     protected $with=['favorites','owner'];
+
+    /*  add  getFavoritedAttribute fun value 
+        to each reply json format which send to vue
+    */
+    protected $appends=['favorited']; 
     protected $guarded=[];
     public function owner(){
         return $this->belongsTo(User::class,'user_id');
@@ -31,6 +36,12 @@ class Reply extends Model
         //without parthensies this is not run query
         $duplicate=$this->favorites->where("user_id",auth()->id())->count();
        return !!$duplicate;
+    }
+    public function getFavoritedAttribute(){
+        return $this->favorited();
+    }
+    public function remove_from_favorite(){
+        return $this->favorites(['reply_id'=>$this->id])->delete();
     }
     public function thread(){
         return $this->belongsTo(Thread::class);
