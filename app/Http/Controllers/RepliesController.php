@@ -25,6 +25,7 @@ class RepliesController extends Controller
 
     public function destroy(Reply $reply){
         $this->authorize('update',$reply);
+        $reply->favorites->each->delete();
         $reply->delete();
         // return back()->with("flash","reply deleted");
          // no need to redirect because this request come from axios

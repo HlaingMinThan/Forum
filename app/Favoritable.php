@@ -30,6 +30,6 @@ trait Favoritable{
     }
 
     public function remove_from_favorite(){
-        return $this->favorites(['reply_id'=>$this->id])->delete();
+        return $this->favorites(['reply_id'=>$this->id])->get()->each->delete();
     }
 }
