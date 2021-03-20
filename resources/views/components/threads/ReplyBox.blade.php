@@ -1,4 +1,4 @@
-<Reply inline-template>
+<Reply inline-template :reply="{{$reply}}">
     <div class="bg-gray-100 p-5 border border-b-1" id="reply_{{$reply->id}}">
         <div class="flex justify-between items-center">
             <div>
@@ -25,14 +25,14 @@
         <div>
            <div>
                 <div v-if="editor" class="my-5">
-                    <textarea name="" id="" class="w-full" rows="5"></textarea>
+                    <textarea name="" id="" class="w-full" rows="5" v-model="body"></textarea>
                     <div class="flex">
-                        <button class="p-2 bg-blue-500 rounded-md text-white flex ml-5">update</button>
+                        <button @click="update" class="p-2 bg-blue-500 rounded-md text-white flex ml-5">update</button>
                         <button @click="editor=false" class="p-2 bg-gray-100 rounded-md text-gray-900 border border-4 border-gray-700 flex ml-5">cancel</button>
                     </div>
                 </div>
                 <div v-if="!editor">
-                    <p class="m-3"> {{$reply->body}}</p>
+                    <p class="m-3" v-text="body"></p>
                 </div>
            </div>
             @can('update',$reply)

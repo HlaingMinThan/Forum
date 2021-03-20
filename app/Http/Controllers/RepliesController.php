@@ -28,4 +28,9 @@ class RepliesController extends Controller
         $reply->delete();
         return back()->with("flash","reply deleted");
     }
+    public function update(Reply $reply){
+        $this->authorize('update',$reply);
+        $reply->update(['body'=>request('body')]);
+        // no need to redirect because this request come from axios
+    }
 }
