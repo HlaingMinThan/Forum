@@ -27,7 +27,7 @@ Route::post("/threads/store",[ThreadController::class,"store"])->name('threads.s
 Route::get("/threads/{channel}/{thread}",[ThreadController::class,'show'])->name('threads.show');
 Route::delete("/threads/{channel}/{thread}",[ThreadController::class,'destroy'])->name('threads.destroy');
 Route::post("/threads/{thread}/replies",[RepliesController::class,"store"])->name('replies.store');
-Route::delete("/threads/{thread}/replies/{reply}",[RepliesController::class,"destroy"])->name('replies.destroy');
+Route::delete("/replies/{reply}",[RepliesController::class,"destroy"])->name('replies.destroy');
 Route::patch("/replies/{reply}",[RepliesController::class,"update"])->name('replies.update');
 Route::post("/replies/{reply}/favorite",[FavoriteController::class,"store"])->name('favorites.store');
 Route::get('/profiles/{user}',[ProfilesController::class,'show'])->name("profiles.show");

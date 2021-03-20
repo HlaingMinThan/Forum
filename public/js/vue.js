@@ -1883,6 +1883,12 @@ __webpack_require__.r(__webpack_exports__);
         body: this.body
       });
       this.editor = false;
+    },
+    destroy: function destroy() {
+      axios["delete"]("/replies/".concat(this.reply.id));
+      $(this.$el).fadeOut(300); //fadeout and remove ui from user'eye with jquery
+
+      console.log("deleted");
     }
   }
 });

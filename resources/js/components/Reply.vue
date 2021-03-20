@@ -14,6 +14,11 @@ import Axios from "axios";
                     body:this.body
                 });
                 this.editor=false;
+            },
+            destroy(){
+                 axios.delete(`/replies/${this.reply.id}`);
+                 $(this.$el).fadeOut(300);//fadeout and remove ui from user'eye with jquery
+                console.log("deleted");
             }
        }
     }

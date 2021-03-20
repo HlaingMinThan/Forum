@@ -23,10 +23,11 @@ class RepliesController extends Controller
             return redirect($thread->path());
     }
 
-    public function destroy($thread,Reply $reply){
+    public function destroy(Reply $reply){
         $this->authorize('update',$reply);
         $reply->delete();
-        return back()->with("flash","reply deleted");
+        // return back()->with("flash","reply deleted");
+         // no need to redirect because this request come from axios
     }
     public function update(Reply $reply){
         $this->authorize('update',$reply);

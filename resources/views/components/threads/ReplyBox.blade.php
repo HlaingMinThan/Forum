@@ -37,17 +37,12 @@
            </div>
             @can('update',$reply)
             <div class="flex justify-end" v-show="!editor">
-                     <button  @click="editor=true" class="p-2 bg-blue-500 rounded-md text-white flex ml-5" type="submit" >
+                     <button  @click="editor=true" class="p-2 bg-blue-500 rounded-md text-white flex ml-5" type="button" >
                         update
                     </button>
-                <form action='{{route("replies.destroy",[$reply->thread,$reply->id])}}' method="POST">
-                    @method("DELETE")
-                    @csrf
-                    <button class="p-2 bg-red-500 rounded-md text-white flex ml-5" type="submit" >
+                    <button  @click="destroy" class="p-2 bg-red-500 rounded-md text-white flex ml-5" type="button" >
                         delete
                     </button>
-                </form>
-                
             </div>
             @endcan
         </div>
