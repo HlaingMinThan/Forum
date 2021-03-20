@@ -21,5 +21,19 @@
             </a>
         @endguest
     </div>
-    <p class="m-3"> {{$reply->body}}</p>
+    <div>
+        <p class="m-3"> {{$reply->body}}</p>
+        @can('update',$reply)
+        <div class="flex justify-end">
+            <form action='{{route("replies.destroy",[$reply->thread,$reply->id])}}' method="POST">
+                @method("DELETE")
+                @csrf
+                <button class="p-2 bg-red-500 rounded-md text-white flex ml-5" type="submit" >
+                    delete
+                </button>
+            </form>
+        </div>
+        @endcan
+    </div>
+      
 </div>
