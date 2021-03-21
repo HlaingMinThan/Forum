@@ -1909,6 +1909,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['reply'],
@@ -1935,6 +1941,11 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post("/replies/" + this.reply.id + "/favorite");
       this.count++;
       this.favorited = true;
+    }
+  },
+  computed: {
+    signedIn: function signedIn() {
+      return window.App.signedIn;
     }
   }
 });
@@ -2027,13 +2038,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Favorite_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Favorite.vue */ "./resources/js/components/Favorite.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -37908,40 +37912,74 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass: "p-2 bg-gray-200 rounded-md flex",
-        attrs: { type: "submit" },
-        on: { click: _vm.toggle }
-      },
-      [
+  return _vm.signedIn
+    ? _c("div", [
         _c(
-          "svg",
+          "button",
           {
-            attrs: {
-              width: "24",
-              height: "24",
-              xmlns: "http://www.w3.org/2000/svg",
-              "fill-rule": "evenodd",
-              "clip-rule": "evenodd"
-            }
+            staticClass: "p-2 bg-gray-200 rounded-md flex",
+            attrs: { type: "submit" },
+            on: { click: _vm.toggle }
           },
           [
-            _c("path", {
-              attrs: {
-                d:
-                  "M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"
-              }
-            })
+            _c(
+              "svg",
+              {
+                attrs: {
+                  width: "24",
+                  height: "24",
+                  xmlns: "http://www.w3.org/2000/svg",
+                  "fill-rule": "evenodd",
+                  "clip-rule": "evenodd"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"
+                  }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("span", { staticClass: "ml-2" }, [_vm._v(_vm._s(_vm.count))])
           ]
-        ),
-        _vm._v(" "),
-        _c("span", { staticClass: "ml-2" }, [_vm._v(_vm._s(_vm.count))])
-      ]
-    )
-  ])
+        )
+      ])
+    : _c("div", [
+        _c(
+          "a",
+          {
+            staticClass: "p-2 bg-gray-200 rounded-md flex",
+            attrs: { href: "/login", type: "submit" }
+          },
+          [
+            _c(
+              "svg",
+              {
+                attrs: {
+                  width: "24",
+                  height: "24",
+                  xmlns: "http://www.w3.org/2000/svg",
+                  "fill-rule": "evenodd",
+                  "clip-rule": "evenodd"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"
+                  }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("span", { staticClass: "ml-2" }, [_vm._v(_vm._s(_vm.count))])
+          ]
+        )
+      ])
 }
 var staticRenderFns = []
 render._withStripped = true
