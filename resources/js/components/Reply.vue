@@ -24,7 +24,7 @@
                 </div>
            </div>
             <!-- @can('update',$reply) -->
-            <div class="flex justify-end" v-show="!editor">
+            <div class="flex justify-end" v-show="!editor" v-if="canUpdate">
                      <button  @click="editor=true" class="p-2 bg-blue-500 rounded-md text-white flex ml-5" type="button" >
                         update
                     </button>
@@ -61,6 +61,16 @@ import Axios from "axios";
                 //  $(this.$el).fadeOut(300);//fadeout and remove ui from user'eye with jquery
                 this.$emit("destroy",this.reply.id);
             }
+       },
+       computed:{
+           canUpdate(){
+               let user=window.App.user;
+               if(user){
+                   return this.reply.user_id===window.App.user.id;//check that user's reply or not
+               }else{
+                   return false
+               }
+           }
        }
     }
 </script>

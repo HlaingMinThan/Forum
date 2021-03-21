@@ -17,7 +17,8 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script>
              window.App={!!json_encode([
-                'signedIn'=>Auth::check()
+                'signedIn'=>auth()->check(),
+                'user'=>auth()->user()
             ])!!}
         </script>
     </head>

@@ -2102,6 +2102,17 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$emit("destroy", this.reply.id);
     }
+  },
+  computed: {
+    canUpdate: function canUpdate() {
+      var user = window.App.user;
+
+      if (user) {
+        return this.reply.user_id === window.App.user.id; //check that user's reply or not
+      } else {
+        return false;
+      }
+    }
   }
 });
 
@@ -38149,45 +38160,49 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
+        _vm.canUpdate
+          ? _c(
+              "div",
               {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.editor,
-                expression: "!editor"
-              }
-            ],
-            staticClass: "flex justify-end"
-          },
-          [
-            _c(
-              "button",
-              {
-                staticClass: "p-2 bg-blue-500 rounded-md text-white flex ml-5",
-                attrs: { type: "button" },
-                on: {
-                  click: function($event) {
-                    _vm.editor = true
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.editor,
+                    expression: "!editor"
                   }
-                }
+                ],
+                staticClass: "flex justify-end"
               },
-              [_vm._v("\n                    update\n                ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "p-2 bg-red-500 rounded-md text-white flex ml-5",
-                attrs: { type: "button" },
-                on: { click: _vm.destroy }
-              },
-              [_vm._v("\n                    delete\n                ")]
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "p-2 bg-blue-500 rounded-md text-white flex ml-5",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.editor = true
+                      }
+                    }
+                  },
+                  [_vm._v("\n                    update\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "p-2 bg-red-500 rounded-md text-white flex ml-5",
+                    attrs: { type: "button" },
+                    on: { click: _vm.destroy }
+                  },
+                  [_vm._v("\n                    delete\n                ")]
+                )
+              ]
             )
-          ]
-        )
+          : _vm._e()
       ])
     ]
   )
