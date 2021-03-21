@@ -20,7 +20,7 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('Dropdown', require('./components/Dropdown.vue').default);
-Vue.component('Reply', require('./components/Reply.vue').default);
+Vue.component('Thread', require('./Pages/Thread.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

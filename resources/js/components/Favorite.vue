@@ -13,7 +13,7 @@ export default {
     props:['reply'],
     data(){
         return{
-            count:this.reply.favorites_count,
+            count:this.reply.favorites.length,
             favorited:this.reply.favorited
         }
     },
