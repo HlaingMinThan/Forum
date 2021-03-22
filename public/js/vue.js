@@ -2304,6 +2304,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     dynamicClass: function dynamicClass() {
       return this.isSubscribed ? 'bg-indigo-500 text-white' : "bg-transparent text-indigo-700 ";
+    },
+    dynamicText: function dynamicText() {
+      return this.isSubscribed ? 'UnSubscribe' : 'Subscrbe';
     }
   },
   methods: {
@@ -60354,7 +60357,7 @@ var render = function() {
         class: _vm.dynamicClass,
         on: { click: _vm.subscribe }
       },
-      [_vm._v("\n        Subscribe This Thread\n    ")]
+      [_vm._v("\n        " + _vm._s(_vm.dynamicText) + " This Thread\n    ")]
     )
   ])
 }
