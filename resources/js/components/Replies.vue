@@ -40,7 +40,14 @@ export default {
             this.$emit("store");
         },
         //this method run initial first time and every time a user click pagination link
-        fetchDatas(pageNum=1){
+        fetchDatas(pageNum){
+            // pageNum is empty on initial fetch
+            //pageNum get From pageChanged event from pagination component
+            if(!pageNum){
+                // check user search From url with page query
+                let query=location.search.match(/page=(\d+)/);
+                pageNum=query? query[1]:1;
+            }
              axios.get(`${location.pathname}/replies?page=${pageNum}`)
             .then((res)=>{
                 this.allReplies=res.data.data;

@@ -45,6 +45,7 @@ export default {
         },
         page(){
             this.$emit("pageChanged",this.page);
+            history.pushState(null,null,`?page=${this.page}`)//only change  page number query on url for user vision 
         }
     },
     computed:{

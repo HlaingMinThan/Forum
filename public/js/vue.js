@@ -2074,6 +2074,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     page: function page() {
       this.$emit("pageChanged", this.page);
+      history.pushState(null, null, "?page=".concat(this.page)); //only change  page number query on url for user vision 
     }
   },
   computed: {
@@ -2144,10 +2145,17 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit("store");
     },
     //this method run initial first time and every time a user click pagination link
-    fetchDatas: function fetchDatas() {
+    fetchDatas: function fetchDatas(pageNum) {
       var _this = this;
 
-      var pageNum = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      // pageNum is empty on initial fetch
+      //pageNum get From pageChanged event from pagination component
+      if (!pageNum) {
+        // check user search From url with page query
+        var query = location.search.match(/page=(\d+)/);
+        pageNum = query ? query[1] : 1;
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_2___default().get("".concat(location.pathname, "/replies?page=").concat(pageNum)).then(function (res) {
         _this.allReplies = res.data.data;
         _this.paginationDatas = res.data;
