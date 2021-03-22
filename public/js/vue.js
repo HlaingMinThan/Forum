@@ -2141,7 +2141,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     store: function store(newReply) {
-      this.allReplies.push(newReply);
+      this.allReplies.unshift(newReply);
       this.$emit("store");
     },
     //this method run initial first time and every time a user click pagination link
@@ -2159,6 +2159,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_2___default().get("".concat(location.pathname, "/replies?page=").concat(pageNum)).then(function (res) {
         _this.allReplies = res.data.data;
         _this.paginationDatas = res.data;
+        window.scrollTo(0, 0);
       });
     }
   },
@@ -59683,7 +59684,9 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c("span", { staticClass: "ml-2" }, [_vm._v(_vm._s(_vm.count))])
+            _c("span", { staticClass: "ml-2 text-blue-600" }, [
+              _vm._v(_vm._s(_vm.count ? _vm.count : ""))
+            ])
           ]
         )
       ])
@@ -59716,7 +59719,9 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c("span", { staticClass: "ml-2" }, [_vm._v(_vm._s(_vm.count))])
+            _c("span", { staticClass: "ml-2" }, [
+              _vm._v(_vm._s(_vm.count ? _vm.count : ""))
+            ])
           ]
         )
       ])
@@ -59764,7 +59769,7 @@ var render = function() {
                 rows: "5",
                 name: "body",
                 id: "message",
-                placeholder: "Your Message"
+                placeholder: "Your Can Participate"
               },
               domProps: { value: _vm.body },
               on: {
@@ -59905,15 +59910,6 @@ var render = function() {
                 _c(
                   "a",
                   {
-                    staticClass:
-                      "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-                  },
-                  [_vm._v("\n            1\n            ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
                     directives: [
                       {
                         name: "show",
@@ -59992,6 +59988,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("New-Reply", { on: { store: _vm.store } }),
+      _vm._v(" "),
       _c("h2", { staticClass: "text-2xl ml-2 my-5" }, [_vm._v("Replies")]),
       _vm._v(" "),
       _c(
@@ -60028,9 +60026,7 @@ var render = function() {
           })
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("New-Reply", { on: { store: _vm.store } })
+      )
     ],
     1
   )

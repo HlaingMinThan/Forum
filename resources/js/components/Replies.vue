@@ -1,5 +1,6 @@
 <template>
     <div>
+        <New-Reply @store="store"></New-Reply>
         <h2 class="text-2xl ml-2 my-5">Replies</h2>
         <div class="bg-grey-300  border-gray-300">
             <div v-if="allReplies.length">
@@ -13,7 +14,6 @@
             <!-- {{$replies->links()}} //pagination-->
             <Pagination :paginationDatas="paginationDatas" @pageChanged="fetchDatas"></Pagination>
         </div>
-        <New-Reply @store="store"></New-Reply>
     </div>
 </template>
 <script>
@@ -36,7 +36,7 @@ export default {
             });
         },
         store(newReply){
-            this.allReplies.push(newReply);
+            this.allReplies.unshift(newReply);
             this.$emit("store");
         },
         //this method run initial first time and every time a user click pagination link
@@ -52,6 +52,7 @@ export default {
             .then((res)=>{
                 this.allReplies=res.data.data;
                 this.paginationDatas=res.data;
+                window.scrollTo(0,0);
             })
         }
     },
