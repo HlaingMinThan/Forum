@@ -14,21 +14,23 @@ class ThreadController extends Controller
         $this->middleware("auth")->except('index','show');
     }
     public function index($channelSlug=null){
-        if($channelSlug){
+        if(!empty($channelSlug)){
             $channelId=Channel::whereSlug($channelSlug)->firstOrFail()->id;
             $threads=Thread::where("channel_id",$channelId)->latest();
         }else{
-            $threads=Thread::withCount("replies")->latest();
+            $threads=Thread::latest();
         }
         if($username=request('by')){
             $userId=User::where("name",$username)->firstOrFail()->id;
-            $threads=Thread::withCount('replies')->where("user_id",$userId)->latest();
+            $threads=Thread::where("user_id",$userId)->latest();
         }
         if(request('popular')){
-            $threads = Thread::withCount('replies')->orderBy("replies_count","desc");
+            $threads = Thread::orderBy("replies_count","desc");
+        }
+        if(request('unanswered')){
+            $threads = Thread::where("replies_count",0);
         }
            $threads=$threads->get();
-        //    dd($threads->toArray());
         return view("threads.index",compact('threads'));
     }
 

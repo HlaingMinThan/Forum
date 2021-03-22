@@ -33,14 +33,14 @@
                             <div class="m-3">
                                 <p class="mt-2">-This Thread Was Published on {{$thread->created_at->diffForHumans()}}</p>
                                 <p class="mt-2">-This Thread Was Published By <a href="{{route('profiles.show',$thread->creator->name)}}" class="text-blue-600">{{$thread->creator->name}}</a></p>
-                                @if($replyCount=$thread->replies->count())
-                                    <p class="mt-2" >-This Thread Currently Has 
+
+                                    <p class="mt-2" v-if="replyCount">-This Thread Currently Has 
                                         <span v-text="replyCount"></span>  comments
                                         <!-- for dynamic update -->
                                     </p>
-                                @else
-                                    <p class="mt-2">This Thread has no comment yet! Anyone can participate it!</p>
-                                @endif
+
+                                    <p v-else class="mt-2">This Thread has no comment yet! Anyone can participate it!</p>
+
                             </div>
                                 <a href="{{route('threads.index')}}" class="mt-10 w-full px-2 py-2 text-white bg-blue-500 flex justify-center rounded-md focus:bg-blue-600 focus:outline-none">Go Back To Read All Threads</a>
                     </div>

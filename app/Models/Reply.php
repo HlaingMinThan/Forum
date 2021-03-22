@@ -16,6 +16,15 @@ class Reply extends Model
     protected $appends=['favorited']; 
     protected $guarded=[];
 
+    protected static function booted(){
+        static::created(function($reply){
+            $reply->thread->increment('replies_count');
+        });
+        static::deleted(function($reply){
+            $reply->thread->decrement('replies_count');
+        });
+    }
+
     public function owner(){
         return $this->belongsTo(User::class,'user_id');
     }
