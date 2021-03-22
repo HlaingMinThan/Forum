@@ -12,15 +12,18 @@ class RepliesController extends Controller
         $this->middleware('auth');
     }
     
-    public function store(Thread $thread){
+    public function store($channelSlug,Thread $thread){
             request()->validate([
                 "body"=>'required'
             ]);
-            $thread->addReply([
+            $newReply=$thread->addReply([
                 'body'=>request('body'),
                 'user_id'=>auth()->user()->id
             ]);
-            return redirect($thread->path());
+            // return created new reply as a json to vue
+            if(request()->expectsJson()){
+                return json_encode($newReply->load('owner'));//new reply as well as owner data
+            }
     }
 
     public function destroy(Reply $reply){

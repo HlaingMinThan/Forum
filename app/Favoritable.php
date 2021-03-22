@@ -25,6 +25,10 @@ trait Favoritable{
        return !!$duplicate;
     }
 
+   /*  
+        getFavoritedAttribute function add favorited data 
+        to each reply json format which send to vue
+    */
     public function getFavoritedAttribute(){
         return $this->favorited();
     }

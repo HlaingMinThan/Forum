@@ -12,15 +12,14 @@ class Reply extends Model
     use HasFactory,RecordsActivity,Favoritable;
     
     protected $with=['favorites','owner'];
-
-    /*  add  getFavoritedAttribute fun value 
-        to each reply json format which send to vue
-    */
+    //register name for getFavoritedAttribute,getOwnerAttribute function for pass to vue
     protected $appends=['favorited']; 
     protected $guarded=[];
+
     public function owner(){
         return $this->belongsTo(User::class,'user_id');
     }
+   
     public function thread(){
         return $this->belongsTo(Thread::class);
     }

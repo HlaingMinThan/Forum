@@ -11,6 +11,9 @@ export default {
     methods:{
         destroy(){
             this.replyCount--;
+        },
+        store(){
+            this.replyCount++;
         }
     }
 }

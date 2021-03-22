@@ -46,7 +46,7 @@
                       @auth
                         <x-dropdown-link class="text-center" href="/threads?by={{auth()->user()->name}}">MY Questions</x-dropdown-link>
                       @endauth
-                        <x-dropdown-link href="threads?popular=1" class="text-center">Popular Threads</x-dropdown-link>
+                        <x-dropdown-link href="/threads?popular=1" class="text-center">Popular Threads</x-dropdown-link>
                 </div>
             </div>
           </x-dropdown>
