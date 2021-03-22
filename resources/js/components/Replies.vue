@@ -11,6 +11,7 @@
                 <h1 class="ml-2">No Replies Yet !!!</h1>
             </div>
             <!-- {{$replies->links()}} //pagination-->
+            <Pagination :paginationDatas="paginationDatas" @pageChanged="fetchDatas"></Pagination>
         </div>
         <New-Reply @store="store"></New-Reply>
     </div>
@@ -18,12 +19,13 @@
 <script>
 import Reply from "./Reply.vue";
 import NewReply from "./NewReply.vue";
+import axios from 'axios';
 export default {
-    props:['replies'],
     components:{Reply,NewReply},
     data(){
         return{
-            allReplies:this.replies
+            allReplies:[],
+            paginationDatas:[],
         }
     },
     methods:{
@@ -36,7 +38,18 @@ export default {
         store(newReply){
             this.allReplies.push(newReply);
             this.$emit("store");
+        },
+        //this method run initial first time and every time a user click pagination link
+        fetchDatas(pageNum=1){
+             axios.get(`${location.pathname}/replies?page=${pageNum}`)
+            .then((res)=>{
+                this.allReplies=res.data.data;
+                this.paginationDatas=res.data;
+            })
         }
+    },
+    created(){
+       this.fetchDatas(); //initial fetching replies and pagination datas
     }
 }
 </script>

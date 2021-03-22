@@ -9,9 +9,11 @@ use Illuminate\Http\Request;
 class RepliesController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index');
     }
-    
+    public function index($channelSlug,Thread $thread){
+        return $thread->replies()->paginate(1);
+    }
     public function store($channelSlug,Thread $thread){
             request()->validate([
                 "body"=>'required'
