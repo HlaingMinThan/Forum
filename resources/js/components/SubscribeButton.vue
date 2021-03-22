@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center">
+    <div class="flex justify-center" v-if="signedIn">
         <button @click="subscribe" class="mt-6     font-bold  py-2 px-4 border border-indigo-500  rounded" :class="dynamicClass">
             {{dynamicText}} This Thread
         </button>
@@ -37,6 +37,9 @@ export default {
         unsubscribe(){
             axios.delete(location.pathname+"/subscriptions");
             this.isSubscribed=false;
+        },
+        signedIn(){
+            return window.App.signedIn;
         }
     }
 }
