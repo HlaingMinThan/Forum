@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\RecordsActivity;
+use App\Subscribable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
+
     protected $guarded=[];
     protected $with=['channel','replies','creator'];
-    use HasFactory,RecordsActivity;
+    use HasFactory,RecordsActivity,Subscribable;
 
     
    
@@ -37,4 +39,5 @@ class Thread extends Model
     public function addReply($reply){
        return $this->replies()->create($reply);
     }
+    
 }

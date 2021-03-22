@@ -51,4 +51,8 @@ class User extends Authenticatable
     public function activities(){
         return $this->hasMany(Activity::class);
     }
+    public function subscriptions(){
+        return $this->hasMany(ThreadSubscription::class);
+    }
+
 }
