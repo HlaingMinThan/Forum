@@ -2,8 +2,7 @@
      <div class="bg-gray-100 p-5 border border-b-1" :id="`reply_${reply.id}`">
         <div class="flex justify-between items-center">
             <div>
-                <p><a :href="`/profiles/${reply.owner.name}`" class="text-blue-600">{{reply.owner.name}}</a> said  </p>
-                <!-- {{$reply->created_at->diffForHumans()}}</p> -->
+                <p><a :href="`/profiles/${reply.owner.name}`" class="text-blue-600">{{reply.owner.name}}</a> said {{timesAgo}} </p>
             </div>
           
             <div class="flex justify-between">
@@ -39,7 +38,8 @@
 </template>
 <script>
 import Favorite from "./Favorite.vue";
-import Axios from "axios";
+import axios from 'axios';
+import moment from 'moment';
     export default {
         props:['reply'],
         components:{Favorite},
@@ -70,6 +70,9 @@ import Axios from "axios";
                }else{
                    return false
                }
+           },
+           timesAgo(){
+               return moment(this.reply.created_at).fromNow();
            }
        }
     }
