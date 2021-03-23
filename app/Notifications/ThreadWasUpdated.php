@@ -57,7 +57,7 @@ class ThreadWasUpdated extends Notification
     {
         return [
             "message"=>auth()->user()->name." is replied on ".$this->thread->title,
-            "link"=>$this->thread->path()
+            "link"=>$this->reply->path()
         ];
     }
 }

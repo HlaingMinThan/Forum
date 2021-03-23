@@ -39,13 +39,13 @@ class Thread extends Model
 
     public function addReply($reply){
         
+        $newReply=$this->replies()->create($reply);
         foreach($this->subscriptions as $sub){
             if($reply['user_id']!=$sub->user_id){
                 // dd();
-                $sub->user->notify(new ThreadWasUpdated($this,$reply));
+                $sub->user->notify(new ThreadWasUpdated($this,$newReply));
             }
         }
-        $newReply=$this->replies()->create($reply);
         return $newReply;
     }
     

@@ -10,7 +10,7 @@ class UserNotificationsController extends Controller
     public function index(User $user){
         return $user->unreadNotifications;
     }
-    public function delete(User $user,$notificationId){
+    public function destroy(User $user,$notificationId){
         $user->notifications()->findOrFail($notificationId)->markAsRead();
     }
 }

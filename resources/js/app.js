@@ -21,6 +21,7 @@ window.Vue = require('vue').default;
 
 Vue.component('Dropdown', require('./components/Dropdown.vue').default);
 Vue.component('Pagination', require('./components/Pagination.vue').default);
+Vue.component('Notibell', require('./components/Notibell.vue').default);
 Vue.component('Thread', require('./Pages/Thread.vue').default);
 
 /**
