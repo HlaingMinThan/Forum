@@ -2066,12 +2066,14 @@ __webpack_require__.r(__webpack_exports__);
     return {
       page: 1,
       next: false,
-      prev: false
+      prev: false,
+      totalPages: null
     };
   },
   watch: {
     paginationDatas: function paginationDatas() {
       this.page = this.paginationDatas.current_page;
+      this.totalPages = this.paginationDatas.last_page;
       this.next = this.paginationDatas.next_page_url;
       this.prev = this.paginationDatas.prev_page_url;
     },
@@ -2083,7 +2085,10 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     shouldPaginate: function shouldPaginate() {
       return !!this.next || !!this.prev;
-    }
+    } // currentPage(){
+    //     return page=i;
+    // }
+
   }
 });
 
@@ -2104,7 +2109,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NewReply_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewReply.vue */ "./resources/js/components/NewReply.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-//
 //
 //
 //
@@ -2144,10 +2148,21 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     store: function store(newReply) {
-      this.allReplies.unshift(newReply);
+      // this.allReplies.unshift(newReply);
+      this.fetchDatas(1);
+      document.querySelector('#replies').scrollIntoView({
+        behavior: 'smooth'
+      });
       this.$emit("store");
     },
-    //this method run initial first time and every time a user click pagination link
+    // every time a user click pagination link
+    pageChanged: function pageChanged(pageNum) {
+      this.fetchDatas(pageNum);
+      document.querySelector('#replies').scrollIntoView({
+        behavior: 'smooth'
+      });
+    },
+    // this method run initial first time 
     fetchDatas: function fetchDatas(pageNum) {
       var _this = this;
 
@@ -2162,7 +2177,6 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_2___default().get("".concat(location.pathname, "/replies?page=").concat(pageNum)).then(function (res) {
         _this.allReplies = res.data.data;
         _this.paginationDatas = res.data;
-        window.scrollTo(0, 0);
       });
     }
   },
@@ -60013,7 +60027,7 @@ var render = function() {
                     }
                   },
                   [
-                    _c("span", [_vm._v("Previous")]),
+                    _c("span", [_vm._v("Prev")]),
                     _vm._v(" "),
                     _c(
                       "svg",
@@ -60039,6 +60053,25 @@ var render = function() {
                     )
                   ]
                 ),
+                _vm._v(" "),
+                _vm._l(_vm.totalPages, function(i) {
+                  return _c(
+                    "a",
+                    {
+                      key: i,
+                      staticClass:
+                        "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 cursor-pointer\t",
+                      class: { "bg-blue-400 text-white": _vm.page == i },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.page = i
+                        }
+                      }
+                    },
+                    [_vm._v("\n            " + _vm._s(i) + "\n            ")]
+                  )
+                }),
                 _vm._v(" "),
                 _c(
                   "a",
@@ -60087,7 +60120,8 @@ var render = function() {
                     )
                   ]
                 )
-              ]
+              ],
+              2
             )
           ])
         ]
@@ -60120,46 +60154,40 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { attrs: { id: "replies" } },
     [
       _c("New-Reply", { on: { store: _vm.store } }),
       _vm._v(" "),
       _c("h2", { staticClass: "text-2xl ml-2 my-5" }, [_vm._v("Replies")]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "bg-grey-300  border-gray-300" },
-        [
-          _vm.allReplies.length
-            ? _c(
-                "div",
-                _vm._l(_vm.allReplies, function(reply) {
-                  return _c(
-                    "div",
-                    { key: reply.id },
-                    [
-                      _c("Reply", {
-                        attrs: { reply: reply },
-                        on: { destroy: _vm.destroy }
-                      })
-                    ],
-                    1
-                  )
-                }),
-                0
-              )
-            : _c("div", [
-                _c("h1", { staticClass: "ml-2" }, [
-                  _vm._v("No Replies Yet !!!")
-                ])
-              ]),
-          _vm._v(" "),
-          _c("Pagination", {
-            attrs: { paginationDatas: _vm.paginationDatas },
-            on: { pageChanged: _vm.fetchDatas }
-          })
-        ],
-        1
-      )
+      _c("div", { staticClass: "bg-grey-300  border-gray-300" }, [
+        _vm.allReplies.length
+          ? _c(
+              "div",
+              _vm._l(_vm.allReplies, function(reply) {
+                return _c(
+                  "div",
+                  { key: reply.id },
+                  [
+                    _c("Reply", {
+                      attrs: { reply: reply },
+                      on: { destroy: _vm.destroy }
+                    })
+                  ],
+                  1
+                )
+              }),
+              0
+            )
+          : _c("div", [
+              _c("h1", { staticClass: "ml-2" }, [_vm._v("No Replies Yet !!!")])
+            ])
+      ]),
+      _vm._v(" "),
+      _c("Pagination", {
+        attrs: { paginationDatas: _vm.paginationDatas },
+        on: { pageChanged: _vm.pageChanged }
+      })
     ],
     1
   )

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="replies">
         <New-Reply @store="store"></New-Reply>
         <h2 class="text-2xl ml-2 my-5">Replies</h2>
         <div class="bg-grey-300  border-gray-300">
@@ -11,9 +11,8 @@
             <div v-else>
                 <h1 class="ml-2">No Replies Yet !!!</h1>
             </div>
-            <!-- {{$replies->links()}} //pagination-->
-            <Pagination :paginationDatas="paginationDatas" @pageChanged="fetchDatas"></Pagination>
         </div>
+        <Pagination :paginationDatas="paginationDatas" @pageChanged="pageChanged"></Pagination>
     </div>
 </template>
 <script>
@@ -36,10 +35,17 @@ export default {
             });
         },
         store(newReply){
-            this.allReplies.unshift(newReply);
+            // this.allReplies.unshift(newReply);
+            this.fetchDatas(1);
+            document.querySelector('#replies').scrollIntoView({behavior:'smooth'});
             this.$emit("store");
         },
-        //this method run initial first time and every time a user click pagination link
+        // every time a user click pagination link
+        pageChanged(pageNum){
+            this.fetchDatas(pageNum);
+            document.querySelector('#replies').scrollIntoView({behavior:'smooth'});
+        },
+        // this method run initial first time 
         fetchDatas(pageNum){
             // pageNum is empty on initial fetch
             //pageNum get From pageChanged event from pagination component
@@ -52,7 +58,6 @@ export default {
             .then((res)=>{
                 this.allReplies=res.data.data;
                 this.paginationDatas=res.data;
-                window.scrollTo(0,0);
             })
         }
     },
