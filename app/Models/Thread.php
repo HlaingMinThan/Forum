@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ThreadWasUpdated;
 use App\RecordsActivity;
 use App\Subscribable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,7 +38,16 @@ class Thread extends Model
     }
 
     public function addReply($reply){
-       return $this->replies()->create($reply);
+        
+        foreach($this->subscriptions as $sub){
+            if($reply['user_id']!=$sub->user_id){
+                // dd();
+                $sub->user->notify(new ThreadWasUpdated($this,$reply));
+            }
+        }
+        $newReply=$this->replies()->create($reply);
+        return $newReply;
     }
     
 }
+

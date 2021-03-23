@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\ThreadSubscriptionController;
+use App\Http\Controllers\UserNotificationsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,10 @@ Route::delete("/replies/{reply}/favorite",[FavoriteController::class,"destroy"])
 
 //Profile
 Route::get('/profiles/{user}',[ProfilesController::class,'show'])->name("profiles.show");
+
+//notifications
+Route::get('/profiles/{user}/notifications',[UserNotificationsController::class,'index'])->name("userNotifications.index");
+Route::delete('/profiles/{user}/notifications/{notification}',[UserNotificationsController::class,'destroy'])->name("userNotifications.destroy");
 
 // ThreadSubscription
 Route::post("/threads/{channel:slug}/{thread}/subscriptions",[ThreadSubscriptionController::class,'store'])->name('threadSubscription.store');
