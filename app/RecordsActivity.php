@@ -7,7 +7,7 @@ use ReflectionClass;
 
 Trait RecordsActivity{
 
-    protected static function booted()//bootRecordsActivity
+    protected static function bootRecordsActivity()//bootRecordsActivity
     {
         if(auth()->guest()) return;
        foreach(static::getEvents() as $event){
