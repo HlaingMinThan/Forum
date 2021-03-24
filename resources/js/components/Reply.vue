@@ -53,8 +53,11 @@ import moment from 'moment';
             update(){
                 axios.patch(`/replies/${this.reply.id}`,{
                     body:this.body
+                }).then(()=>{
+                    this.editor=false;
+                    window.flash.success('Reply Updated','',{timeOut:1000});
                 });
-                this.editor=false;
+                
             },
             destroy(){
                  axios.delete(`/replies/${this.reply.id}`);

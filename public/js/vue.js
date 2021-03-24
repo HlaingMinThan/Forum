@@ -2012,8 +2012,12 @@ __webpack_require__.r(__webpack_exports__);
         var newReply = res.data;
 
         _this.$emit("store", newReply);
+
+        _this.body = "";
+        window.flash.success('Reply Added', '', {
+          timeOut: 1000
+        });
       });
-      this.body = ""; // console.log(this.endpoint);
     }
   }
 });
@@ -2310,10 +2314,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     update: function update() {
+      var _this = this;
+
       axios__WEBPACK_IMPORTED_MODULE_1___default().patch("/replies/".concat(this.reply.id), {
         body: this.body
+      }).then(function () {
+        _this.editor = false;
+        window.flash.success('Reply Updated', '', {
+          timeOut: 1000
+        });
       });
-      this.editor = false;
     },
     destroy: function destroy() {
       axios__WEBPACK_IMPORTED_MODULE_1___default().delete("/replies/".concat(this.reply.id)); //  $(this.$el).fadeOut(300);//fadeout and remove ui from user'eye with jquery
@@ -60026,34 +60036,38 @@ var render = function() {
     _vm.signedIn
       ? _c("div", [
           _c("div", { staticClass: "my-6" }, [
-            _c("textarea", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.body,
-                  expression: "body"
-                }
-              ],
-              staticClass:
-                "w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500",
-              attrs: {
-                required: "",
-                rows: "5",
-                name: "body",
-                id: "message",
-                placeholder: "Your Can Participate"
-              },
-              domProps: { value: _vm.body },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c(
+              "textarea",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.body,
+                    expression: "body"
                   }
-                  _vm.body = $event.target.value
+                ],
+                staticClass:
+                  "w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500",
+                attrs: {
+                  required: "",
+                  rows: "5",
+                  name: "body",
+                  id: "message",
+                  placeholder: "Your Can Participate"
+                },
+                domProps: { value: _vm.body },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.body = $event.target.value
+                  }
                 }
-              }
-            })
+              },
+              [_vm._v("asf")]
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mb-6" }, [
