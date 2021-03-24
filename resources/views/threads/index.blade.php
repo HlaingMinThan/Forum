@@ -13,7 +13,14 @@
                         <article class="p-5">
                             <div class="text-2xl text-blue-600 flex justify-between"> 
                                 <div>
-                                    <a href="{{$thread->path()}}">{{$thread->title}}</a>
+                                    @if($thread->hasAnyUpdate())
+                                        <a href="{{$thread->path()}}" class="font-bold">
+                                            {{$thread->title}}
+                                            <span class="text-green-500 text-sm ml-2">Thread Updated</span>
+                                        </a>
+                                    @else
+                                        <a href="{{$thread->path()}}">{{$thread->title}}</a>
+                                    @endif
                                 </div>
                                 <div>
                                     <a href="{{$thread->path()}}" class="text-lg">Replies-{{$thread->replies_count}}</a>

@@ -6,7 +6,6 @@ use App\Models\Channel;
 use App\Models\Reply;
 use App\Models\Thread;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class ThreadController extends Controller
 {
@@ -39,6 +38,8 @@ class ThreadController extends Controller
     }
 
     public function show($channelSlug,Thread $thread){
+        $thread->saveLastReadTimestamp();
+
         return view("threads.show",[
             'thread'=>$thread,
             'replies'=>$thread->replies()->with('owner')->withCount('favorites')->latest()->paginate(5)
