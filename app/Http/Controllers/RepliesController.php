@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Inspections\Spam;
 use App\Models\Reply;
 use App\Models\Thread;
-use Illuminate\Http\Request;
 
 class RepliesController extends Controller
 {
@@ -14,10 +14,11 @@ class RepliesController extends Controller
     public function index($channelSlug,Thread $thread){
         return $thread->replies()->latest()->paginate(10);
     }
-    public function store($channelSlug,Thread $thread){
+    public function store($channelSlug,Thread $thread,Spam $spam){
             request()->validate([
                 "body"=>'required'
             ]);
+            $spam->detect(request("body"));
             $newReply=$thread->addReply([
                 'body'=>request('body'),
                 'user_id'=>auth()->user()->id
