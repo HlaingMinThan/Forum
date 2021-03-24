@@ -2374,6 +2374,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     dynamicText: function dynamicText() {
       return this.isSubscribed ? 'UnSubscribe' : 'Subscrbe';
+    },
+    signedIn: function signedIn() {
+      return window.App.signedIn;
     }
   },
   methods: {
@@ -2388,9 +2391,6 @@ __webpack_require__.r(__webpack_exports__);
     unsubscribe: function unsubscribe() {
       axios__WEBPACK_IMPORTED_MODULE_0___default().delete(location.pathname + "/subscriptions");
       this.isSubscribed = false;
-    },
-    signedIn: function signedIn() {
-      return window.App.signedIn;
     }
   }
 });

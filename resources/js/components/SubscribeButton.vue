@@ -22,6 +22,9 @@ export default {
         dynamicText(){
             return this.isSubscribed ?  'UnSubscribe' : 'Subscrbe'
 
+        },
+        signedIn(){
+            return window.App.signedIn;
         }
     },
     methods:{
@@ -37,9 +40,6 @@ export default {
         unsubscribe(){
             axios.delete(location.pathname+"/subscriptions");
             this.isSubscribed=false;
-        },
-        signedIn(){
-            return window.App.signedIn;
         }
     }
 }
