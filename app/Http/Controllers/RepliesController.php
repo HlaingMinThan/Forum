@@ -15,18 +15,15 @@ class RepliesController extends Controller
         return $thread->replies()->latest()->paginate(10);
     }
     public function store($channelSlug,Thread $thread,Spam $spam){
-            request()->validate([
-                "body"=>'required'
-            ]);
-            $spam->detect(request("body"));
+           
+            $this->validateReply();
+
             $newReply=$thread->addReply([
                 'body'=>request('body'),
                 'user_id'=>auth()->user()->id
             ]);
-            // return created new reply as a json to vue
-            if(request()->expectsJson()){
-                return json_encode($newReply->load('owner'));//new reply as well as owner data
-            }
+
+           return $newReply->load('owner'); //return new reply json data back to javascript with owner relation
     }
 
     public function destroy(Reply $reply){
@@ -37,8 +34,21 @@ class RepliesController extends Controller
          // no need to redirect because this request come from axios
     }
     public function update(Reply $reply){
+
+        $this->validateReply();
         $this->authorize('update',$reply);
         $reply->update(['body'=>request('body')]);
         // no need to redirect because this request come from axios
+
+    }
+
+    public function validateReply(){
+
+        request()->validate([
+            "body"=>'required'
+        ]);
+
+        (new Spam)->detect(request("body"));
+
     }
 }

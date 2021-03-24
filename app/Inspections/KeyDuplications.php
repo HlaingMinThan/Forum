@@ -6,7 +6,7 @@ class KeyDuplications{
 
     public function detect($body){
         if(preg_match('/(.)\\1{4}/',$body,$matches)){
-            abort(403);
+            abort(422,"we don't allow spam");
         }
     }
     

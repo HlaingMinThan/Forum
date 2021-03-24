@@ -2017,6 +2017,11 @@ __webpack_require__.r(__webpack_exports__);
         window.flash.success('Reply Added', '', {
           timeOut: 1000
         });
+      })["catch"](function (error) {
+        window.flash.error('Sorry,We don\'t Allow Spam', '', {
+          timeOut: 1000
+        });
+        _this.body = "";
       });
     }
   }
@@ -2323,6 +2328,11 @@ __webpack_require__.r(__webpack_exports__);
         window.flash.success('Reply Updated', '', {
           timeOut: 1000
         });
+      })["catch"](function (error) {
+        window.flash.error('Sorry,We don\'t Allow Spam', '', {
+          timeOut: 1000
+        });
+        _this.body = "";
       });
     },
     destroy: function destroy() {

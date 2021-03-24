@@ -39,6 +39,9 @@ export default {
                 this.$emit("store",newReply);
                 this.body="";
                 window.flash.success('Reply Added','',{timeOut:1000});
+            }).catch((error)=>{
+                window.flash.error('Sorry,We don\'t Allow Spam','',{timeOut:1000});
+                this.body="";
             })
         }
     }

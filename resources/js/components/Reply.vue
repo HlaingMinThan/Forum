@@ -56,8 +56,10 @@ import moment from 'moment';
                 }).then(()=>{
                     this.editor=false;
                     window.flash.success('Reply Updated','',{timeOut:1000});
+                }).catch((error)=>{
+                    window.flash.error('Sorry,We don\'t Allow Spam','',{timeOut:1000});
+                    this.body="";
                 });
-                
             },
             destroy(){
                  axios.delete(`/replies/${this.reply.id}`);
