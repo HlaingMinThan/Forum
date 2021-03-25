@@ -13,6 +13,7 @@ class Spam
         foreach($this->inspections as $inspection){
             (new $inspection)->detect($body);
         }
+        return false;//if there is no spam return false,if there is it'll throw new exception
     }
     
 }

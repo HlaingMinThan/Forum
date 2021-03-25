@@ -2,6 +2,8 @@
 
 namespace App\Inspections;
 
+use Exception;
+
 class SpamKeywords{
 
     protected $spamKeywords=[
@@ -11,7 +13,8 @@ class SpamKeywords{
     public function detect($body){
         foreach($this->spamKeywords as $keyword){
             if(str_contains($body,$keyword)){ //check reply body contain in spam keywords
-                abort(422,"we don't allow spam");
+                // abort(422,"we don't allow spam");
+                throw new Exception("We don't allow spam");
             }
         }
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Inspections\Spam;
 use App\Models\Reply;
 use App\Models\Thread;
+use App\Rules\SpamFree;
 
 class RepliesController extends Controller
 {
@@ -16,7 +17,9 @@ class RepliesController extends Controller
     }
     public function store($channelSlug,Thread $thread,Spam $spam){
            
-            $this->validateReply();
+            request()->validate([
+                "body"=>['required',new SpamFree]
+            ]);
 
             $newReply=$thread->addReply([
                 'body'=>request('body'),
@@ -39,16 +42,6 @@ class RepliesController extends Controller
         $this->authorize('update',$reply);
         $reply->update(['body'=>request('body')]);
         // no need to redirect because this request come from axios
-
-    }
-
-    public function validateReply(){
-
-        request()->validate([
-            "body"=>'required'
-        ]);
-
-        (new Spam)->detect(request("body"));
 
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Channel;
 use App\Models\Reply;
 use App\Models\Thread;
 use App\Models\User;
+use App\Rules\SpamFree;
 
 class ThreadController extends Controller
 {
@@ -25,11 +26,10 @@ class ThreadController extends Controller
 
     public function store(Spam $spam){
         request()->validate([
-            'title'=>"required",
-            'body'=>"required",
+            'title'=>["required",new SpamFree],
+            'body'=>["required",new SpamFree],
             'channel_id'=>"required|exists:channels,id"
         ]);
-        $spam->detect(request('body'));
         $thread=Thread::create([
             'user_id'=>auth()->id(),
             'title'=>request("title"),
