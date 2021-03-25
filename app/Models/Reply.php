@@ -13,26 +13,30 @@ class Reply extends Model
     
     protected $with=['favorites','owner'];
     //register name for getFavoritedAttribute,getOwnerAttribute function for pass to vue
-    protected $appends=['favorited']; 
+    protected $appends=['favorited'];
     protected $guarded=[];
 
-    protected static function booted(){
-        static::created(function($reply){
+    protected static function booted()
+    {
+        static::created(function ($reply) {
             $reply->thread->increment('replies_count');
         });
-        static::deleted(function($reply){
+        static::deleted(function ($reply) {
             $reply->thread->decrement('replies_count');
         });
     }
 
-    public function owner(){
-        return $this->belongsTo(User::class,'user_id');
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
    
-    public function thread(){
+    public function thread()
+    {
         return $this->belongsTo(Thread::class);
     }
-    public function path(){
+    public function path()
+    {
         return $this->thread->path()."#reply_$this->id";
     }
 }

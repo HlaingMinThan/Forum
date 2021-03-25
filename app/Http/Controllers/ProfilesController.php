@@ -8,13 +8,12 @@ use Illuminate\Http\Request;
 
 class ProfilesController extends Controller
 {
-    public function show(User $user){
-
+    public function show(User $user)
+    {
         $activities=Activity::getAllActivitiesFrom($user);
-        return view("profiles.show",[
+        return view("profiles.show", [
             "user"=>$user,
             "activities"=>$activities
         ]);
     }
-   
 }

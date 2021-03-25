@@ -1,15 +1,18 @@
-<?php 
+<?php
 
 namespace App;
 
 use App\Models\Favorite;
 
-trait Favoritable{
-    public function favorites(){
-        return $this->morphMany(Favorite::class,"favorited");//default is favoritable
+trait Favoritable
+{
+    public function favorites()
+    {
+        return $this->morphMany(Favorite::class, "favorited");//default is favoritable
     }
 
-    public function add_to_favorite(){
+    public function add_to_favorite()
+    {
         Favorite::create([
             "user_id"=>auth()->user()->id,
             "favorited_id"=>$this->id,
@@ -19,21 +22,24 @@ trait Favoritable{
         // $reply->favorites()->create(['user_id'=>auth()->user()->id]);
     }
 
-    public function favorited(){
+    public function favorited()
+    {
         //without parthensies this is not run query
-        $duplicate=$this->favorites->where("user_id",auth()->id())->count();
-       return !!$duplicate;
+        $duplicate=$this->favorites->where("user_id", auth()->id())->count();
+        return !!$duplicate;
     }
 
-   /*  
-        getFavoritedAttribute function add favorited data 
-        to each reply json format which send to vue
-    */
-    public function getFavoritedAttribute(){
+    /*
+         getFavoritedAttribute function add favorited data
+         to each reply json format which send to vue
+     */
+    public function getFavoritedAttribute()
+    {
         return $this->favorited();
     }
 
-    public function remove_from_favorite(){
+    public function remove_from_favorite()
+    {
         return $this->favorites(['reply_id'=>$this->id])->get()->each->delete();
     }
 }

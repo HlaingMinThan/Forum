@@ -10,7 +10,9 @@ class Favorite extends Model
 {
     use HasFactory,RecordsActivity;
     protected $guarded=[];
-    public function favorited(){
+    
+    public function favorited()
+    {
         return $this->morphTo();
     }
 }

@@ -17,7 +17,7 @@ class ThreadWasUpdated extends Notification
      *
      * @return void
      */
-    public function __construct(protected $thread,protected $reply)
+    public function __construct(protected $thread, protected $reply)
     {
         //
     }

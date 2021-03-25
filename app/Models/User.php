@@ -46,24 +46,27 @@ class User extends Authenticatable
     {
         return 'name';
     }
-    public function threads(){
+    public function threads()
+    {
         return $this->hasMany(Thread::class);
     }
-    public function activities(){
+    public function activities()
+    {
         return $this->hasMany(Activity::class);
     }
-    public function subscriptions(){
+    public function subscriptions()
+    {
         return $this->hasMany(ThreadSubscription::class);
     }
-    public function lastReply(){
+    public function lastReply()
+    {
         return $this->hasOne(Reply::class)->latest(); // a user has one latest reply
     }
     
-    public function isReplyAfterOneMinute(){
-
+    public function isReplyAfterOneMinute()
+    {
         $userLastRepliedTime=$this->lastReply->updated_at;
         $beforeOneMinuteFromCurrent=Carbon::now()->subMinute();
         return  $userLastRepliedTime < $beforeOneMinuteFromCurrent;
-
     }
 }

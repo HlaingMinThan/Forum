@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 
 class UserNotificationsController extends Controller
 {
-    public function index(User $user){
+    public function index(User $user)
+    {
         return $user->unreadNotifications;
     }
-    public function destroy(User $user,$notificationId){
+    public function destroy(User $user, $notificationId)
+    {
         $user->notifications()->findOrFail($notificationId)->markAsRead();
     }
 }

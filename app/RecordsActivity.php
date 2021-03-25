@@ -1,28 +1,32 @@
-<?php  
+<?php
 
 namespace App;
 
 use App\Models\Activity;
 use ReflectionClass;
 
-Trait RecordsActivity{
-
+trait RecordsActivity
+{
     protected static function bootRecordsActivity()//bootRecordsActivity
     {
-        if(auth()->guest()) return;
-       foreach(static::getEvents() as $event){
-        static::created(function($model) use ($event){
-            $model->recordActivity($event);
-        });
-       }
-       static::deleting(function($model){
-        $model->activity()->delete(); // activity method is tn in the  Recordsactivity trait
+        if (auth()->guest()) {
+            return;
+        }
+        foreach (static::getEvents() as $event) {
+            static::created(function ($model) use ($event) {
+                $model->recordActivity($event);
+            });
+        }
+        static::deleting(function ($model) {
+            $model->activity()->delete(); // activity method is tn in the  Recordsactivity trait
         });
     }
-    protected static function getEvents(){
+    protected static function getEvents()
+    {
         return ['created'];
     }
-    protected function recordActivity($eventType){
+    protected function recordActivity($eventType)
+    {
         // Activity::create([
         //     "user_id"=>auth()->id(),
         //     "subject_id"=>$this->id,
@@ -34,10 +38,12 @@ Trait RecordsActivity{
             "type"=>$this->activityType($eventType)
         ]);
     }
-    public function activity(){
-        return $this->morphMany(Activity::class,'subject');//a thread has morph many activities
+    public function activity()
+    {
+        return $this->morphMany(Activity::class, 'subject');//a thread has morph many activities
     }
-    public function activityType($event){
+    public function activityType($event)
+    {
         $className=strtolower((new ReflectionClass($this))->getShortName());
         return "{$event}_{$className}"; //created_thread
     }
