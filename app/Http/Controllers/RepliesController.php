@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Inspections\Spam;
 use App\Models\Reply;
 use App\Models\Thread;
 use App\Rules\SpamFree;
+use Exception;
 
 class RepliesController extends Controller
 {
@@ -15,11 +15,15 @@ class RepliesController extends Controller
     public function index($channelSlug,Thread $thread){
         return $thread->replies()->latest()->paginate(10);
     }
-    public function store($channelSlug,Thread $thread,Spam $spam){
+    public function store($channelSlug,Thread $thread){
            
+          try{
             request()->validate([
                 "body"=>['required',new SpamFree]
             ]);
+          }catch(Exception $e){
+              return response("humm ,it may be spam",422);//error response to javascript
+          }
 
             $newReply=$thread->addReply([
                 'body'=>request('body'),

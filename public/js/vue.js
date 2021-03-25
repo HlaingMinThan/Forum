@@ -2018,7 +2018,8 @@ __webpack_require__.r(__webpack_exports__);
           timeOut: 1000
         });
       })["catch"](function (error) {
-        window.flash.error('Sorry,We don\'t Allow Spam', '', {
+        // catching error from server response
+        window.flash.error(error.response.data, '', {
           timeOut: 1000
         });
         _this.body = "";

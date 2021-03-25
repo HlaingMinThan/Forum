@@ -40,7 +40,8 @@ export default {
                 this.body="";
                 window.flash.success('Reply Added','',{timeOut:1000});
             }).catch((error)=>{
-                window.flash.error('Sorry,We don\'t Allow Spam','',{timeOut:1000});
+                // catching error from server response
+                window.flash.error(error.response.data,'',{timeOut:1000});
                 this.body="";
             })
         }
