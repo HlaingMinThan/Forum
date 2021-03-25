@@ -32,6 +32,10 @@ export default {
     },
     methods:{
         addReply(){
+            if(!this.body){
+                window.flash.error("Please fill the reply body first",'',{timeOut:1000});
+                return;
+            }
             axios.post(this.endpoint,{
                 body:this.body
             }).then((res)=>{

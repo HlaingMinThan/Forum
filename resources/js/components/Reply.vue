@@ -51,6 +51,10 @@ import moment from 'moment';
         },
        methods:{
             update(){
+                 if(!this.body){
+                    window.flash.error("Please fill the reply body first",'',{timeOut:1000});
+                    return;
+                }
                 axios.patch(`/replies/${this.reply.id}`,{
                     body:this.body
                 }).then(()=>{

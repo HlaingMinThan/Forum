@@ -39,9 +39,9 @@ class ReplyPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user,Reply $reply)
     {
-        //
+        return $user->isReplyAfterOneMinute();
     }
 
     /**

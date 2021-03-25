@@ -2006,6 +2006,13 @@ __webpack_require__.r(__webpack_exports__);
     addReply: function addReply() {
       var _this = this;
 
+      if (!this.body) {
+        window.flash.error("Please fill the reply body first", '', {
+          timeOut: 1000
+        });
+        return;
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(this.endpoint, {
         body: this.body
       }).then(function (res) {
@@ -2321,6 +2328,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     update: function update() {
       var _this = this;
+
+      if (!this.body) {
+        window.flash.error("Please fill the reply body first", '', {
+          timeOut: 1000
+        });
+        return;
+      }
 
       axios__WEBPACK_IMPORTED_MODULE_1___default().patch("/replies/".concat(this.reply.id), {
         body: this.body
