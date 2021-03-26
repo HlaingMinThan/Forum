@@ -60591,7 +60591,7 @@ var render = function() {
             ? _c("div", [
                 _c("p", {
                   staticClass: "m-3",
-                  domProps: { textContent: _vm._s(_vm.body) }
+                  domProps: { innerHTML: _vm._s(_vm.body) }
                 })
               ])
             : _vm._e()

@@ -7,5 +7,5 @@
             </p>
         </div>
     </div>
-    <p class="m-3"> {{$reply->body}}</p>
+    <p class="m-3"> {!!$reply->body!!}</p>
 </div>

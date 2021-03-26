@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div v-if="!editor">
-                    <p class="m-3" v-text="body"></p>
+                    <p class="m-3" v-html="body"></p>
                 </div>
            </div>
             <!-- @can('update',$reply) -->

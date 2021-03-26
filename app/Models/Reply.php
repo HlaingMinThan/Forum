@@ -44,4 +44,12 @@ class Reply extends Model
         preg_match_all("/\B\@([\w\-]+)/", $this->body, $matches);
         return $matches[1];
     }
+    public function setBodyAttribute($body)// override before insert in to table
+    {
+        $this->attributes['body']=preg_replace(
+            "/\B\@([\w\-]+)/", //search mention user
+            '<a class="text-blue-600 underline" href="/profiles/$1">@$1</a>',
+            $body
+        );
+    }
 }
