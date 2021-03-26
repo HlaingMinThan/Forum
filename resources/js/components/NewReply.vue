@@ -5,7 +5,13 @@
             @enderror-->
             <div v-if="signedIn">
                 <div class="my-6">
-                    <textarea required v-model="body" rows="5" name="body" id="message" placeholder="Your Can Participate" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500">asf</textarea>
+                    <Mentionable
+                        :keys="['@']"
+                        :items="items"
+                        offset="6"
+                    >
+                        <textarea  required v-model="body" rows="5" name="body" id="message" placeholder="Your Can Participate" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"/>
+                    </Mentionable>{{body}}
                 </div>
                 <div class="mb-6">
                     <button @click="addReply" type="submit" class="w-full px-3 py-4 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none">Add Reply</button>
@@ -18,11 +24,21 @@
 
 <script>
 import axios from 'axios';
+import { Mentionable } from 'vue-mention'
 export default {
+    components: {Mentionable},
     data(){
         return {
             body:"",
-            endpoint:location.pathname+"/replies"
+            endpoint:location.pathname+"/replies",
+            items: [
+                {
+                value: 'cat',
+                },
+                {
+                value: 'dog',
+                },
+            ],
         }
     },
     computed:{
@@ -54,5 +70,13 @@ export default {
 </script>
 
 <style>
+.mention-item {
+  padding: 10px 10px;
+  border-radius: 4px;
+  border:1px solid #2E8BC0;
+}
 
+.mention-selected {
+  background: #2E8BC0
+}
 </style>
