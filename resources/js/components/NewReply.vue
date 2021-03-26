@@ -7,11 +7,11 @@
                 <div class="my-6">
                     <Mentionable
                         :keys="['@']"
-                        :items="items"
+                        :items="mapUsernames"
                         offset="6"
                     >
                         <textarea  required v-model="body" rows="5" name="body" id="message" placeholder="Your Can Participate" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"/>
-                    </Mentionable>{{body}}
+                    </Mentionable>
                 </div>
                 <div class="mb-6">
                     <button @click="addReply" type="submit" class="w-full px-3 py-4 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none">Add Reply</button>
@@ -26,24 +26,23 @@
 import axios from 'axios';
 import { Mentionable } from 'vue-mention'
 export default {
+    props:['usernames'],
     components: {Mentionable},
     data(){
         return {
             body:"",
-            endpoint:location.pathname+"/replies",
-            items: [
-                {
-                value: 'cat',
-                },
-                {
-                value: 'dog',
-                },
-            ],
+            endpoint:location.pathname+"/replies"
         }
     },
     computed:{
         signedIn(){
             return window.App.signedIn;
+        },
+        mapUsernames(){
+            //map  object key to value for vue-mention
+           return this.usernames.map(username=>{
+                return {value:username.name};
+            })
         }
     },
     methods:{
@@ -71,12 +70,16 @@ export default {
 
 <style>
 .mention-item {
-  padding: 10px 10px;
+    padding: 5px 5px;;
+  text-align: center;
   border-radius: 4px;
   border:1px solid #2E8BC0;
 }
 
 .mention-selected {
   background: #2E8BC0
+}
+.popper{
+    left:200px  !important;
 }
 </style>

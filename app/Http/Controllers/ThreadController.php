@@ -47,9 +47,12 @@ class ThreadController extends Controller
     {
         $thread->saveLastReadTimestamp();
 
+        $usernames=User::all('name');
+        
         return view("threads.show", [
             'thread'=>$thread,
-            'replies'=>$thread->replies()->with('owner')->withCount('favorites')->latest()->paginate(5)
+            'replies'=>$thread->replies()->with('owner')->withCount('favorites')->latest()->paginate(5),
+            'usernames'=>$usernames
         ]);
     }
 

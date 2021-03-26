@@ -22,7 +22,7 @@
                                 </div>
                                 <p class="mt-5">{{$thread->body}}</p>
                             </article>
-                            <Replies @destroy="destroy" @store="store"></Replies>
+                            <Replies @destroy="destroy" @store="store" :usernames="{{$usernames}}"></Replies>
                     </div>
                 </div>
             </div>

@@ -2104,23 +2104,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['usernames'],
   components: {
     Mentionable: vue_mention__WEBPACK_IMPORTED_MODULE_1__.Mentionable
   },
   data: function data() {
     return {
       body: "",
-      endpoint: location.pathname + "/replies",
-      items: [{
-        value: 'cat'
-      }, {
-        value: 'dog'
-      }]
+      endpoint: location.pathname + "/replies"
     };
   },
   computed: {
     signedIn: function signedIn() {
       return window.App.signedIn;
+    },
+    mapUsernames: function mapUsernames() {
+      //map  object key to value for vue-mention
+      return this.usernames.map(function (username) {
+        return {
+          value: username.name
+        };
+      });
     }
   },
   methods: {
@@ -2321,6 +2325,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['usernames'],
   components: {
     Reply: _Reply_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     NewReply: _NewReply_vue__WEBPACK_IMPORTED_MODULE_1__.default
@@ -7100,7 +7105,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.mention-item {\n  padding: 10px 10px;\n  border-radius: 4px;\n  border:1px solid #2E8BC0;\n}\n.mention-selected {\n  background: #2E8BC0\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.mention-item {\n    padding: 5px 5px;;\n  text-align: center;\n  border-radius: 4px;\n  border:1px solid #2E8BC0;\n}\n.mention-selected {\n  background: #2E8BC0\n}\n.popper{\n    left:200px  !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -67196,7 +67201,9 @@ var render = function() {
             [
               _c(
                 "Mentionable",
-                { attrs: { keys: ["@"], items: _vm.items, offset: "6" } },
+                {
+                  attrs: { keys: ["@"], items: _vm.mapUsernames, offset: "6" }
+                },
                 [
                   _c("textarea", {
                     directives: [
@@ -67227,8 +67234,7 @@ var render = function() {
                     }
                   })
                 ]
-              ),
-              _vm._v(_vm._s(_vm.body) + "\n              ")
+              )
             ],
             1
           ),
@@ -67582,7 +67588,10 @@ var render = function() {
     "div",
     { attrs: { id: "replies" } },
     [
-      _c("New-Reply", { on: { store: _vm.store } }),
+      _c("New-Reply", {
+        attrs: { usernames: _vm.usernames },
+        on: { store: _vm.store }
+      }),
       _vm._v(" "),
       _c("h2", { staticClass: "text-2xl ml-2 my-5" }, [_vm._v("Replies")]),
       _vm._v(" "),

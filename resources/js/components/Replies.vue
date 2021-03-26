@@ -1,6 +1,6 @@
 <template>
     <div id="replies">
-        <New-Reply @store="store"></New-Reply>
+        <New-Reply @store="store" :usernames="usernames"></New-Reply>
         <h2 class="text-2xl ml-2 my-5">Replies</h2>
         <div class="bg-grey-300  border-gray-300">
             <div v-if="allReplies.length">
@@ -20,6 +20,7 @@ import Reply from "./Reply.vue";
 import NewReply from "./NewReply.vue";
 import axios from 'axios';
 export default {
+    props:['usernames'],
     components:{Reply,NewReply},
     data(){
         return{
