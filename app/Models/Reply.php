@@ -39,4 +39,9 @@ class Reply extends Model
     {
         return $this->thread->path()."#reply_$this->id";
     }
+    public function mentionedUsers()
+    {
+        preg_match_all("/\B\@([\w\-]+)/", $this->body, $matches);
+        return $matches[1];
+    }
 }
