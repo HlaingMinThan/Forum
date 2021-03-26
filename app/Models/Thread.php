@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\ThreadWasUpdated;
+use App\Notifications\YouAreMentioned;
 use App\RecordsActivity;
 use App\Subscribable;
 use Carbon\Carbon;
@@ -44,10 +45,20 @@ class Thread extends Model
     public function addReply($reply)
     {
         $newReply=$this->replies()->create($reply);
+        //send notification to thread subscriber
         foreach ($this->subscriptions as $sub) {
             if ($reply['user_id']!=$sub->user_id) {
-                // dd();
                 $sub->user->notify(new ThreadWasUpdated($this, $newReply));
+            }
+        }
+        //send notification to mentioned user
+        $replyBody=$newReply->body;
+        preg_match_all("/\B\@([\w\-]+)/", $replyBody, $matches);
+        $names=$matches[1];
+        foreach ($names as $name) {
+            $user=User::where("name", $name)->first();/**Be careful not using get() on where queries when u want only record */
+            if ($user->id!=auth()->id()) {
+                $user->notify(new YouAreMentioned($newReply));
             }
         }
         return $newReply;
