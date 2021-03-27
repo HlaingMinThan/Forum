@@ -11,7 +11,7 @@ class ProfilesController extends Controller
     {
         $activities=Activity::getAllActivitiesFrom($user);
         return view("profiles.show", [
-            "user"=>$user,
+            "profileUser"=>$user,
             "activities"=>$activities
         ]);
     }
