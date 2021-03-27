@@ -1,8 +1,15 @@
 <template>
      <div class="bg-gray-100 p-5 border border-b-1" :id="`reply_${reply.id}`">
         <div class="flex justify-between items-center">
-            <div>
-                <p><a :href="`/profiles/${reply.owner.name}`" class="text-blue-600">{{reply.owner.name}}</a> said {{timesAgo}} </p>
+            <div class="flex items-center">
+                <div>
+                    <a :href="`/profiles/${reply.owner.name}`"><img :src="`/${reply.owner.avator_path}`" class="mr-3 rounded-full" width="40" height="40"></a>  
+                </div>
+                <div>
+                    <a :href="`/profiles/${reply.owner.name}`" class="text-blue-600">
+                    {{reply.owner.name}}
+                    </a> said {{timesAgo}}
+                </div>
             </div>
           
             <div class="flex justify-between">

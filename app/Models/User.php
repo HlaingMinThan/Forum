@@ -66,9 +66,12 @@ class User extends Authenticatable
     
     public function isReplyAfterOneMinute()
     {
-        $userLastRepliedTime=$this->lastReply->updated_at;
-        $beforeOneMinuteFromCurrent=Carbon::now()->subMinute();
-        return  $userLastRepliedTime < $beforeOneMinuteFromCurrent;
+        if (isset($this->lastReply->updated_at)) {
+            $userLastRepliedTime=$this->lastReply->updated_at;
+            $beforeOneMinuteFromCurrent=Carbon::now()->subMinute();
+            return  $userLastRepliedTime < $beforeOneMinuteFromCurrent;
+        }
+        return true;
     }
     public function avator()
     {

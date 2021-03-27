@@ -9,6 +9,16 @@
                     <div class="p-6 bg-white border-b border-gray-200">
                             <article class="m-3">
                                 <div class="flex justify-between">
+                                        <div class="flex items-center">
+                                            <div>
+                                                <img src="{{asset($thread->creator->avator())}}" class="mr-3 rounded-full" width="40" height="40">
+                                            </div>
+                                            <div>
+                                                <a href="{{route('profiles.show',$thread->creator->name)}}" class="font-bold text-blue-500 underline ">
+                                                    {{$thread->creator->name}}
+                                                </a>
+                                            </div>
+                                        </div>
                                         <h2 class="font-semibold text-3xl text-gray-800 text-center">{{$thread->title}}</h2>
                                         @can('update',$thread)
                                         <form action='{{route("threads.destroy",[$thread->channel->slug,$thread->id])}}' method="POST">

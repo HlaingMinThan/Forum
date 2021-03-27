@@ -2437,6 +2437,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -64400,12 +64407,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var popper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js");
-/* harmony import */ var lodash_isEqual__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js");
-/* harmony import */ var lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_isEqual__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var vue_resize__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-resize */ "./node_modules/vue-resize/dist/vue-resize.esm.js");
-/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
-/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var popper_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js");
+/* harmony import */ var lodash_isEqual__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js");
+/* harmony import */ var lodash_isEqual__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_isEqual__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-resize */ "./node_modules/vue-resize/dist/vue-resize.esm.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -64673,7 +64680,7 @@ var Tooltip = /*#__PURE__*/function () {
       var classesUpdated = false;
       var classes = options && options.classes || directive.options.defaultClass;
 
-      if (!lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(this._classes, classes)) {
+      if (!lodash_isEqual__WEBPACK_IMPORTED_MODULE_4___default()(this._classes, classes)) {
         this.setClasses(classes);
         classesUpdated = true;
       }
@@ -64920,7 +64927,7 @@ var Tooltip = /*#__PURE__*/function () {
         };
       }
 
-      this.popperInstance = new popper_js__WEBPACK_IMPORTED_MODULE_4__.default(reference, tooltipNode, popperOptions);
+      this.popperInstance = new popper_js__WEBPACK_IMPORTED_MODULE_7__.default(reference, tooltipNode, popperOptions);
 
       this._setContent(title, options); // Fix position
 
@@ -65542,7 +65549,7 @@ if (typeof window !== 'undefined') {
 var script = {
   name: 'VPopover',
   components: {
-    ResizeObserver: vue_resize__WEBPACK_IMPORTED_MODULE_6__.ResizeObserver
+    ResizeObserver: vue_resize__WEBPACK_IMPORTED_MODULE_5__.ResizeObserver
   },
   props: {
     open: {
@@ -65855,7 +65862,7 @@ var script = {
           });
         }
 
-        this.popperInstance = new popper_js__WEBPACK_IMPORTED_MODULE_4__.default(reference, popoverNode, popperOptions); // Fix position
+        this.popperInstance = new popper_js__WEBPACK_IMPORTED_MODULE_7__.default(reference, popoverNode, popperOptions); // Fix position
 
         requestAnimationFrame(function () {
           if (_this3.hidden) {
@@ -66412,7 +66419,7 @@ function install(Vue) {
   if (install.installed) return;
   install.installed = true;
   var finalOptions = {};
-  lodash_merge__WEBPACK_IMPORTED_MODULE_7___default()(finalOptions, defaultOptions, options);
+  lodash_merge__WEBPACK_IMPORTED_MODULE_6___default()(finalOptions, defaultOptions, options);
   plugin.options = finalOptions;
   directive.options = finalOptions;
   Vue.directive('tooltip', directive);
@@ -67658,17 +67665,36 @@ var render = function() {
     },
     [
       _c("div", { staticClass: "flex justify-between items-center" }, [
-        _c("div", [
-          _c("p", [
+        _c("div", { staticClass: "flex items-center" }, [
+          _c("div", [
+            _c("a", { attrs: { href: "/profiles/" + _vm.reply.owner.name } }, [
+              _c("img", {
+                staticClass: "mr-3 rounded-full",
+                attrs: {
+                  src: "/" + _vm.reply.owner.avator_path,
+                  width: "40",
+                  height: "40"
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", [
             _c(
               "a",
               {
                 staticClass: "text-blue-600",
                 attrs: { href: "/profiles/" + _vm.reply.owner.name }
               },
-              [_vm._v(_vm._s(_vm.reply.owner.name))]
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.reply.owner.name) +
+                    "\n                "
+                )
+              ]
             ),
-            _vm._v(" said " + _vm._s(_vm.timesAgo) + " ")
+            _vm._v(" said " + _vm._s(_vm.timesAgo) + "\n            ")
           ])
         ]),
         _vm._v(" "),
