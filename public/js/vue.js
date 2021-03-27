@@ -1988,6 +1988,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2006,7 +2008,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['user'],
   data: function data() {
@@ -2023,6 +2025,32 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return false;
       }
+    }
+  },
+  methods: {
+    selectPhoto: function selectPhoto(e) {
+      var _this = this;
+
+      //avator file
+      var avator = e.target.files[0]; //get select avator location
+
+      var reader = new FileReader();
+      reader.readAsDataURL(avator);
+
+      reader.onload = function (e) {
+        var src = e.target.result; // change avator in user ui view
+
+        _this.avator = src;
+      }; // making like a form sending avator file
+
+
+      var data = new FormData(); //creating a form
+
+      data.append('avator', avator); //creating  input name with "avator" and file with avator file
+      // send request in backend
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/profiles/".concat(this.user.name, "/avator"), data);
+      window.flash.success("your profile has been updated :)");
     }
   }
 });
@@ -67244,36 +67272,30 @@ var render = function() {
             staticClass:
               "flex justify-between items-center my-5 border border-color-dark p-1"
           },
-          [_vm._m(0)]
+          [
+            _c(
+              "form",
+              {
+                attrs: {
+                  action: "",
+                  method: "POST",
+                  enctype: "multipart/form-data"
+                }
+              },
+              [
+                _c("input", {
+                  staticClass: "bg-gray-200 text-dark p-2",
+                  attrs: { type: "file", name: "avator", accept: "image/*" },
+                  on: { change: _vm.selectPhoto }
+                })
+              ]
+            )
+          ]
         )
       : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "form",
-      { attrs: { action: "", method: "POST", enctype: "multipart/form-data" } },
-      [
-        _c("input", {
-          attrs: { type: "file", name: "avator", accept: "image/*", id: "" }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "bg-blue-600 text-white p-2 rounded-md",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Add Profile")]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
