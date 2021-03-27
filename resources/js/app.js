@@ -21,6 +21,7 @@ Vue.use(VTooltip)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('Avator', require('./components/Avator.vue').default);
 Vue.component('Dropdown', require('./components/Dropdown.vue').default);
 Vue.component('Pagination', require('./components/Pagination.vue').default);
 Vue.component('Notibell', require('./components/Notibell.vue').default);

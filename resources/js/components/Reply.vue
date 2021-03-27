@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
             <div class="flex items-center">
                 <div>
-                    <a :href="`/profiles/${reply.owner.name}`"><img :src="`/${reply.owner.avator_path}`" class="mr-3 rounded-full" width="40" height="40"></a>  
+                    <a :href="`/profiles/${reply.owner.name}`"><img :src="avator" class="mr-3 rounded-full" width="40" height="40"></a>  
                 </div>
                 <div>
                     <a :href="`/profiles/${reply.owner.name}`" class="text-blue-600">
@@ -53,7 +53,8 @@ import moment from 'moment';
         data() {
             return{
                 editor:false,
-                body:this.reply.body
+                body:this.reply.body,
+                avator:this.reply.owner.avator_path
             }
         },
        methods:{

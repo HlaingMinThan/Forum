@@ -2,21 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-center">
             <div>
-                <div class="flex justify-center mb-5">
-                    <img src="{{asset($profileUser->avator())}}" class="rounded-full" width="200" height="200">
-                </div>
-                @can("update",$profileUser)
-                    <div class="flex justify-between items-center my-5 border border-color-dark p-1">
-                    <form action="{{route('avator.update',$profileUser->name)}}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <input type="file" name="avator" id="">
-                            <button class="bg-blue-600 text-white p-2 rounded-md" type="submit">Add Profile</button>
-                    </form>
-                    </div>
-                    @error('avator')
-                        <p class="text-center text-red-500 font-bold">{{ $message }}</p>
-                    @enderror
-                @endcan
+                <Avator :user="{{$profileUser}}"></Avator>
                 <h1 class="font-semibold text-4xl mt-3 text-gray-800 leading-tight text-center">
                     {{$profileUser->name}}
                 </h1>

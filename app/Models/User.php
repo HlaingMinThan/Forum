@@ -77,4 +77,9 @@ class User extends Authenticatable
     {
         return $this->avator_path?:'/avators/user.svg';
     }
+    public function getAvatorPathAttribute($value)
+    {
+        //check profile picture exists or not
+        return isset($value)? "/{$value}":"/avators/user.svg";
+    }
 }
