@@ -18,7 +18,7 @@ trait RecordsActivity
             });
         }
         static::deleting(function ($model) {
-            $model->activity()->delete(); // activity method is tn in the  Recordsactivity trait
+            $model->activities()->delete(); // activity method is tn in the  Recordsactivity trait
         });
     }
     protected static function getEvents()
@@ -27,14 +27,14 @@ trait RecordsActivity
     }
     protected function recordActivity($eventType)
     {
-        $this->activity()->create([
+        $this->activities()->create([
             "user_id"=>auth()->id(),
             "type"=>$this->activityType($eventType)
         ]);
     }
-    public function activity()
+    public function activities()
     {
-        return $this->morphMany(Activity::class, 'subject');//a thread has morph many activities
+        return $this->morphMany(Activity::class, 'subject');//a (thread,reply,favorite) has morph many activities
     }
     public function activityType($event)
     {
