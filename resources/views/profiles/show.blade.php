@@ -3,11 +3,14 @@
         <div class="flex justify-center">
             <div>
                 <div class="flex justify-center mb-5">
-                    <img src="/avators/default.svg" width="200" height="200">
+                    <img src="{{asset($user->avator())}}" width="200" height="200">
                 </div>
                 <div class="flex justify-between items-center my-5 border border-color-dark p-1">
-                    <input type="file" name="avator" id="">
-                    <button class="bg-blue-600 text-white p-2 rounded-md">Add Profile</button>
+                   <form action="{{route('avator.update',$user->name)}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" name="avator" id="">
+                        <button class="bg-blue-600 text-white p-2 rounded-md" type="submit">Add Profile</button>
+                   </form>
                 </div>
                 <h1 class="font-semibold text-4xl mt-3 text-gray-800 leading-tight text-center">
                     {{$user->name}}

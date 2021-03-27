@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        "avator_path"
     ];
 
     /**
@@ -31,7 +32,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'email',
-        'remember_token',
+        'remember_token'
     ];
 
     /**
@@ -68,5 +69,9 @@ class User extends Authenticatable
         $userLastRepliedTime=$this->lastReply->updated_at;
         $beforeOneMinuteFromCurrent=Carbon::now()->subMinute();
         return  $userLastRepliedTime < $beforeOneMinuteFromCurrent;
+    }
+    public function avator()
+    {
+        return $this->avator_path?:'/avators/user.svg';
     }
 }
