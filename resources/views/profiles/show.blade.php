@@ -1,9 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <h1 class="font-semibold text-4xl text-gray-800 leading-tight text-center">
-            {{$user->name}}
-        </h1>
-            <p class="text-center mt-5">since {{$user->created_at->diffForHumans()}}</p>
+        <div class="flex justify-center">
+            <div>
+                <div class="flex justify-center mb-5">
+                    <img src="/avators/default.svg" width="200" height="200">
+                </div>
+                <div class="flex justify-between items-center my-5 border border-color-dark p-1">
+                    <input type="file" name="avator" id="">
+                    <button class="bg-blue-600 text-white p-2 rounded-md">Add Profile</button>
+                </div>
+                <h1 class="font-semibold text-4xl mt-3 text-gray-800 leading-tight text-center">
+                    {{$user->name}}
+                </h1>
+                <p class="text-center mt-5">since {{$user->created_at->diffForHumans()}}</p>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
