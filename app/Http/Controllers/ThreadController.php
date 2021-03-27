@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Inspections\Spam;
 use App\Models\Channel;
-use App\Models\Reply;
 use App\Models\Thread;
 use App\Models\User;
 use App\Rules\SpamFree;
@@ -27,13 +25,15 @@ class ThreadController extends Controller
         return view('threads.create');
     }
 
-    public function store(Spam $spam)
+    public function store()
     {
+        // validation
         request()->validate([
             'title'=>["required",new SpamFree],
             'body'=>["required",new SpamFree],
             'channel_id'=>"required|exists:channels,id"
         ]);
+        // store in database
         $thread=Thread::create([
             'user_id'=>auth()->id(),
             'title'=>request("title"),
@@ -45,8 +45,10 @@ class ThreadController extends Controller
 
     public function show($channelSlug, Thread $thread)
     {
+        //get time of user last view into this page
         $thread->saveLastReadTimestamp();
 
+        //get all users names for mention user autocompletion
         $usernames=User::all('name');
         
         return view("threads.show", [
@@ -58,23 +60,14 @@ class ThreadController extends Controller
 
     public function destroy($channelSlug=null, Thread $thread)
     {
+        //a user can delete only his thread
         $this->authorize('update', $thread);
-        /*
-            $thread->replies()->delete(); //this way not calling on child relations
-        */
-        // Calling On Child Relations
-        // First way
+        
+        // delete all associate thread's replies and child relations
         foreach ($thread->replies as $reply) {
             $reply->delete();
         }
-        /* Second way
-            $thread->replies->each(function($reply){
-            $reply->delete();
-            });
-        /*
-        /* Third Way
-             $thread->replies->each->delete();
-        */
+        
         $thread->delete();
         return redirect()->route("threads.index");
     }

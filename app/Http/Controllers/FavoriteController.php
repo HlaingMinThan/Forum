@@ -10,6 +10,7 @@ class FavoriteController extends Controller
 {
     public function store(Reply $reply)
     {
+        // unfavorited post can be favorite
         if (!$reply->favorited()) {
             $reply->add_to_favorite();
         }
@@ -17,6 +18,7 @@ class FavoriteController extends Controller
     
     public function destroy(Reply $reply)
     {
+        // favorited post can be unfavorite
         if ($reply->favorited()) {
             $reply->remove_from_favorite();
         }

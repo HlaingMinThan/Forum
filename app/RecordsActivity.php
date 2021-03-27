@@ -27,12 +27,6 @@ trait RecordsActivity
     }
     protected function recordActivity($eventType)
     {
-        // Activity::create([
-        //     "user_id"=>auth()->id(),
-        //     "subject_id"=>$this->id,
-        //     "subject_type"=>get_class($this),
-        //     "type"=>$this->activityType($eventType)
-        // ]);
         $this->activity()->create([
             "user_id"=>auth()->id(),
             "type"=>$this->activityType($eventType)

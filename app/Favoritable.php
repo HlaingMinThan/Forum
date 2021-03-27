@@ -13,13 +13,8 @@ trait Favoritable
 
     public function add_to_favorite()
     {
-        Favorite::create([
-            "user_id"=>auth()->user()->id,
-            "favorited_id"=>$this->id,
-            "favorited_type"=>get_class($this)
-        ]);
-        // another way for polymorphic relation
-        // $reply->favorites()->create(['user_id'=>auth()->user()->id]);
+        //favorited type and favorited id will be automatically insert
+        $this->favorites()->create(['user_id'=>auth()->id()]);
     }
 
     public function favorited()
@@ -40,6 +35,6 @@ trait Favoritable
 
     public function remove_from_favorite()
     {
-        return $this->favorites(['reply_id'=>$this->id])->get()->each->delete();
+        $this->favorites->where("user_id", auth()->id())->each->delete();
     }
 }

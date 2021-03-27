@@ -20,11 +20,11 @@ class RepliesController extends Controller
     }
     public function store($channelSlug, Thread $thread)
     {
-
         //A user can reply again after 1minute
         if (Gate::denies("create", new Reply)) {
             return response("You are posting too frequently,pls take a break :)", 422);//error response to javascript
         }
+        //validation
         try {
             request()->validate([
             "body"=>['required',new SpamFree]
@@ -33,24 +33,27 @@ class RepliesController extends Controller
             return response("humm ,it may be spam", 422);//error response to javascript
         }
 
-        $newReply=$thread->addReply([
-            'body'=>request('body'),
-            'user_id'=>auth()->user()->id
-        ]);
-
-        return $newReply->load('owner'); //return new reply json data back to javascript with owner relation
+        return $thread->addReply([
+                    'body'=>request('body'),
+                    'user_id'=>auth()->user()->id
+                ])->load('owner'); //return new reply json data back to javascript with owner relation
     }
 
     public function destroy(Reply $reply)
     {
+        // a user can delete only his reply
         $this->authorize('update', $reply);
+
+        // when delete a reply ,delete all assosiate relation of that reply's favorites data
         $reply->favorites->each->delete();
         $reply->delete();
-        // return back()->with("flash","reply deleted");
-         // no need to redirect because this request come from axios
     }
     public function update(Reply $reply)
     {
+        // a user can update only his reply
+        $this->authorize('update', $reply);
+        
+        //validation
         try {
             request()->validate([
                 "body"=>['required',new SpamFree]
@@ -58,8 +61,7 @@ class RepliesController extends Controller
         } catch (Exception $e) {
             return response("humm ,it may be spam", 422);//error response to javascript
         }
-        $this->authorize('update', $reply);
+        
         $reply->update(['body'=>request('body')]);
-        // no need to redirect because this request come from axios
     }
 }
