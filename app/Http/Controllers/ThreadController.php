@@ -90,6 +90,6 @@ class ThreadController extends Controller
         if (request('unanswered')) {
             $threads = Thread::where("replies_count", 0);
         }
-        return $threads=$threads->get();
+        return $threads=$threads->paginate(10);
     }
 }

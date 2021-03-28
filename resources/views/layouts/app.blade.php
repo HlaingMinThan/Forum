@@ -36,6 +36,10 @@
             <main>
                 {{ $slot }}
             </main>
+            
+            <footer class="bg-gray-800 mt-10 p-20 text-center text-white">
+                crafted by CreativeCoder in 2021 
+            </footer>
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
