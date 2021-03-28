@@ -7,7 +7,6 @@ use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\ThreadSubscriptionController;
 use App\Http\Controllers\UserAvatorController;
 use App\Http\Controllers\UserNotificationsController;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,10 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    //testing
-    $visits=Redis::incr('visits');
-    return $visits;
+    return view('welcome');
 });
 // Thread
 Route::get("/threads", [ThreadController::class,'index'])->name('threads.index');

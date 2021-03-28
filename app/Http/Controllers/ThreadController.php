@@ -6,6 +6,7 @@ use App\Models\Channel;
 use App\Models\Thread;
 use App\Models\User;
 use App\Rules\SpamFree;
+use Illuminate\Support\Facades\Redis;
 
 class ThreadController extends Controller
 {
@@ -17,7 +18,12 @@ class ThreadController extends Controller
     public function index($channelSlug=null)
     {
         $threads=$this->filterThreads($channelSlug);
-        return view("threads.index", compact('threads'));
+        $trending_threads=Redis::zrevrange('trending_threads', 0, 4);//get numeric array of jsons
+        $trending_threads=array_map(function ($thread) {
+            return json_decode($thread);
+        }, $trending_threads);
+       
+        return view("threads.index", compact('threads', 'trending_threads'));
     }
 
     public function create()
@@ -50,6 +56,11 @@ class ThreadController extends Controller
             $thread->saveLastReadTimestamp();
         }
 
+        //when user read a thread increment one visit count in redis key
+        Redis::zincrby("trending_threads", 1, json_encode([
+            'title'=>$thread->title,
+            'path'=>$thread->path(),
+        ]));
         //get all users names for mention user autocompletion
         $usernames=User::all('name');
         return view("threads.show", [
