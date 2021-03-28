@@ -25,6 +25,6 @@ class VerifyEmailController extends Controller
             event(new Verified($request->user()));
         }
 
-        return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+        return redirect()->intended(RouteServiceProvider::HOME.'?verified=1')->with("success", "Your email has been verified,U can now publish thread");
     }
 }
