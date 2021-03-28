@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use App\Events\ReplyCreated;
-use App\Notifications\ThreadWasUpdated;
-use App\Notifications\YouAreMentioned;
 use App\RecordsActivity;
 use App\Subscribable;
+use App\Trending;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +14,7 @@ class Thread extends Model
 {
     protected $guarded=[];
     protected $with=['channel','replies','creator'];
-    use HasFactory,RecordsActivity,Subscribable;
+    use HasFactory,RecordsActivity,Subscribable,Trending;
 
     
    
