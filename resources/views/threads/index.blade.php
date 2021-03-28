@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
-            All Threads
+            All Threads 
         </h2>
     </x-slot>
 
@@ -35,7 +35,10 @@
                                     <a href="{{$thread->path()}}" class="text-lg">Replies-{{$thread->replies_count}}</a>
                                 </div>
                             </div>
-                            <p class="mt-5">{{$thread->body}}</p>
+                            <p class="mt-5">{{$thread->body}}</p> 
+                            <div class="flex justify-end">
+                                <p class="text-lg mt-5  ">visitors- <span class="text-green-500 font-bold">{{$thread->visitors()}}</span></p>
+                            </div>
                         </article>
                     </div>
                 </div>

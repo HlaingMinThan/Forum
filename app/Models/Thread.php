@@ -9,6 +9,7 @@ use App\Trending;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Redis;
 
 class Thread extends Model
 {
@@ -72,5 +73,18 @@ class Thread extends Model
 
         // when user view a thread,save user last view timestamp for this thread show page in cache
         cache()->forever($key, Carbon::now());// demo => cache['users.1.reads.2'=>timestamp]
+    }
+    public function visitors()
+    {
+        /*u can write this way too
+            $visitors=Redis::get("threads.{$this->id}.visits");
+            return isset($visitors) ? Redis::get("threads.{$this->id}.visits"):0;
+        */
+
+        return Redis::get("threads.{$this->id}.visits")??0;
+    }
+    public function incVisitors()
+    {
+        Redis::incr("threads.{$this->id}.visits");
     }
 }

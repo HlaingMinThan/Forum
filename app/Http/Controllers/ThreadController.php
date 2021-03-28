@@ -54,6 +54,10 @@ class ThreadController extends Controller
 
         $thread->pushToTrendingThreads();
 
+        // increment visit count of that thread into redis
+        $thread->incVisitors();
+
+
         //get all users names for mention user autocompletion
         $usernames=User::all('name');
 
