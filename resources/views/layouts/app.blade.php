@@ -45,9 +45,13 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script>
             window.flash=toastr;//make toastr to global use
-            let message="{{session('flash')}}";
-            if(message){
-                toastr.success(message,'',{timeOut: 2000});
+            let success="{{session('success')}}";
+            if(success){
+                toastr.success(success,'',{timeOut: 2000});
+            }
+            let danger="{{session('danger')}}";
+            if(danger){
+                toastr.error(danger,'',{timeOut: 2000});
             }
         </script>
         <script src="{{asset('js/vue.js')}}"></script>
