@@ -10,7 +10,7 @@
             @forelse($threads as $thread)
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <div class="mt-1 flex items-center p-5">
+                        <div class="mt-1 flex items-center p-1 ml-3">
                             <div class="flex items-center">
                                 <img src="{{asset($thread->creator->avator())}}" class="mr-3 rounded-full" width="40" height="40">
                                 <a href="{{route('profiles.show',$thread->creator->name)}}" class="font-bold text-blue-500 underline ">

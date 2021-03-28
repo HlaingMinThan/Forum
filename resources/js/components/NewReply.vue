@@ -26,10 +26,11 @@
 import axios from 'axios';
 import { Mentionable } from 'vue-mention'
 export default {
-    props:['usernames'],
+
     components: {Mentionable},
     data(){
         return {
+            usernames:[],
             body:"",
             endpoint:location.pathname+"/replies"
         }
@@ -64,6 +65,11 @@ export default {
                 this.body="";
             })
         }
+    },
+    created(){
+        axios.get("/api/usernames").then((res)=>{
+            this.usernames=res.data;
+        });
     }
 }
 </script>

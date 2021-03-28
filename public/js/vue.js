@@ -2184,12 +2184,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['usernames'],
   components: {
     Mentionable: vue_mention__WEBPACK_IMPORTED_MODULE_1__.Mentionable
   },
   data: function data() {
     return {
+      usernames: [],
       body: "",
       endpoint: location.pathname + "/replies"
     };
@@ -2237,6 +2237,13 @@ __webpack_require__.r(__webpack_exports__);
         _this.body = "";
       });
     }
+  },
+  created: function created() {
+    var _this2 = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/usernames").then(function (res) {
+      _this2.usernames = res.data;
+    });
   }
 });
 
@@ -2405,7 +2412,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['usernames'],
   components: {
     Reply: _Reply_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     NewReply: _NewReply_vue__WEBPACK_IMPORTED_MODULE_1__.default
@@ -67810,10 +67816,7 @@ var render = function() {
     "div",
     { attrs: { id: "replies" } },
     [
-      _c("New-Reply", {
-        attrs: { usernames: _vm.usernames },
-        on: { store: _vm.store }
-      }),
+      _c("New-Reply", { on: { store: _vm.store } }),
       _vm._v(" "),
       _c("h2", { staticClass: "text-2xl ml-2 my-5" }, [_vm._v("Replies")]),
       _vm._v(" "),

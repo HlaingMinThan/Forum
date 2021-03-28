@@ -52,19 +52,13 @@ class ThreadController extends Controller
             $thread->saveLastReadTimestamp();
         }
 
+        //push that thread to thread_trending counting redis list
         $thread->pushToTrendingThreads();
 
         // increment visit count of that thread into redis
         $thread->incVisitors();
-
-
-        //get all users names for mention user autocompletion
-        $usernames=User::all('name');
-
-        return view("threads.show", [
-            'thread'=>$thread,
-            'usernames'=>$usernames
-        ]);
+        
+        return view("threads.show", compact('thread'));
     }
 
     public function destroy($channelSlug=null, Thread $thread)
