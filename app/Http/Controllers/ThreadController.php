@@ -46,14 +46,14 @@ class ThreadController extends Controller
     public function show($channelSlug, Thread $thread)
     {
         //get time of user last view into this page
-        $thread->saveLastReadTimestamp();
+        if (auth()->check()) {
+            $thread->saveLastReadTimestamp();
+        }
 
         //get all users names for mention user autocompletion
         $usernames=User::all('name');
-        
         return view("threads.show", [
             'thread'=>$thread,
-            'replies'=>$thread->replies()->with('owner')->withCount('favorites')->latest()->paginate(5),
             'usernames'=>$usernames
         ]);
     }

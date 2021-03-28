@@ -54,9 +54,12 @@ class Thread extends Model
     
     public function hasAnyUpdate()
     {
-        $key=$this->getCacheKey();
-        $userLastReadTimeStamp=cache($key);
-        return $this->updated_at>$userLastReadTimeStamp; //compare timestamp and return boolean
+        if (auth()->check()) {
+            $key=$this->getCacheKey();
+            $userLastReadTimeStamp=cache($key);
+            return $this->updated_at>$userLastReadTimeStamp; //compare timestamp and return boolean
+        }
+        return false;
     }
 
     public function getCacheKey()
