@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Models\Channel;
 use App\Models\Thread;
 use App\Models\User;
@@ -38,6 +39,7 @@ class ThreadController extends Controller
         // store in database
         $thread=Thread::create([
             'user_id'=>auth()->id(),
+            'slug'=>Str::slug(request('title')).'_'.uniqid(),
             'title'=>request("title"),
             'body'=>request("body"),
             'channel_id'=>request("channel_id"),

@@ -17,11 +17,14 @@ class Thread extends Model
     protected $with=['channel','replies','creator'];
     use HasFactory,RecordsActivity,Subscribable,Trending;
 
-    
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
    
     public function path()
     {
-        return "/threads/{$this->channel->slug}/$this->id";
+        return "/threads/{$this->channel->slug}/$this->slug";
     }
 
     public function channel()
