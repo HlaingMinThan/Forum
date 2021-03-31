@@ -1,5 +1,5 @@
 <template>
-     <div class="bg-gray-100 p-5 border border-b-1" :id="`reply_${reply.id}`">
+     <div class=" p-5 border border-b-1" :id="`reply_${reply.id}`" :class="{'bg-blue-100':isBest,'bg-gray-100':!isBest}">
         <div class="flex justify-between items-center">
             <div class="flex items-center">
                 <div>
@@ -30,13 +30,20 @@
                 </div>
            </div>
             <!-- @can('update',$reply) -->
-            <div class="flex justify-end" v-show="!editor" v-if="canUpdate">
-                     <button  @click="editor=true" class="p-2 bg-blue-500 rounded-md text-white flex ml-5" type="button" >
+            <div class="flex justify-between" v-show="!editor" >
+                    <div v-if="canMarkAsBestReply">
+                         <button  @click="markAsBestReply" class="p-2 bg-blue-500 rounded-md text-white flex ml-5" type="button" >
+                        Mark As Best Reply
+                        </button>
+                    </div>
+                    <div v-if="canUpdate" class="flex">
+                         <button  @click="editor=true" class="p-2 bg-blue-500 rounded-md text-white flex ml-5" type="button" >
                         update
-                    </button>
-                    <button  @click="destroy" class="p-2 bg-red-500 rounded-md text-white flex ml-5" type="button" >
-                        delete
-                    </button>
+                        </button>
+                        <button  @click="destroy" class="p-2 bg-red-500 rounded-md text-white flex ml-5" type="button" >
+                            delete
+                        </button>
+                    </div>
             </div>
             <!-- @endcan -->
         </div>
@@ -52,6 +59,7 @@ import moment from 'moment';
         components:{Favorite},
         data() {
             return{
+                isBest:this.reply.isBest,
                 editor:false,
                 body:this.reply.body,
                 avator:this.reply.owner.avator_path
@@ -77,6 +85,9 @@ import moment from 'moment';
                  axios.delete(`/replies/${this.reply.id}`);
                 //  $(this.$el).fadeOut(300);//fadeout and remove ui from user'eye with jquery
                 this.$emit("destroy",this.reply.id);
+            },
+            markAsBestReply(){
+                axios.post(`/replies/${this.reply.id}/best`);
             }
        },
        computed:{
@@ -84,6 +95,14 @@ import moment from 'moment';
                let user=window.App.user;
                if(user){
                    return this.reply.user_id===window.App.user.id;//check that user's reply or not
+               }else{
+                   return false
+               }
+           },
+           canMarkAsBestReply(){
+               let user=window.App.user;
+               if(user){
+                   return this.reply.thread.creator.id===window.App.user.id;//check that user's reply or not
                }else{
                    return false
                }

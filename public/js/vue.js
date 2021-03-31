@@ -2530,6 +2530,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2540,6 +2547,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      isBest: this.reply.isBest,
       editor: false,
       body: this.reply.body,
       avator: this.reply.owner.avator_path
@@ -2574,6 +2582,9 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_1___default().delete("/replies/".concat(this.reply.id)); //  $(this.$el).fadeOut(300);//fadeout and remove ui from user'eye with jquery
 
       this.$emit("destroy", this.reply.id);
+    },
+    markAsBestReply: function markAsBestReply() {
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post("/replies/".concat(this.reply.id, "/best"));
     }
   },
   computed: {
@@ -2582,6 +2593,15 @@ __webpack_require__.r(__webpack_exports__);
 
       if (user) {
         return this.reply.user_id === window.App.user.id; //check that user's reply or not
+      } else {
+        return false;
+      }
+    },
+    canMarkAsBestReply: function canMarkAsBestReply() {
+      var user = window.App.user;
+
+      if (user) {
+        return this.reply.thread.creator.id === window.App.user.id; //check that user's reply or not
       } else {
         return false;
       }
@@ -67878,7 +67898,8 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "bg-gray-100 p-5 border border-b-1",
+      staticClass: " p-5 border border-b-1",
+      class: { "bg-blue-100": _vm.isBest, "bg-gray-100": !_vm.isBest },
       attrs: { id: "reply_" + _vm.reply.id }
     },
     [
@@ -67984,49 +68005,78 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
-        _vm.canUpdate
-          ? _c(
-              "div",
+        _c(
+          "div",
+          {
+            directives: [
               {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: !_vm.editor,
-                    expression: "!editor"
-                  }
-                ],
-                staticClass: "flex justify-end"
-              },
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "p-2 bg-blue-500 rounded-md text-white flex ml-5",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        _vm.editor = true
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.editor,
+                expression: "!editor"
+              }
+            ],
+            staticClass: "flex justify-between"
+          },
+          [
+            _vm.canMarkAsBestReply
+              ? _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "p-2 bg-blue-500 rounded-md text-white flex ml-5",
+                      attrs: { type: "button" },
+                      on: { click: _vm.markAsBestReply }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Mark As Best Reply\n                    "
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.canUpdate
+              ? _c("div", { staticClass: "flex" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "p-2 bg-blue-500 rounded-md text-white flex ml-5",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.editor = true
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("\n                    update\n                ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "p-2 bg-red-500 rounded-md text-white flex ml-5",
-                    attrs: { type: "button" },
-                    on: { click: _vm.destroy }
-                  },
-                  [_vm._v("\n                    delete\n                ")]
-                )
-              ]
-            )
-          : _vm._e()
+                    },
+                    [
+                      _vm._v(
+                        "\n                    update\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "p-2 bg-red-500 rounded-md text-white flex ml-5",
+                      attrs: { type: "button" },
+                      on: { click: _vm.destroy }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        delete\n                    "
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
+          ]
+        )
       ])
     ]
   )

@@ -39,7 +39,7 @@ Route::delete('/replies/{reply}', [RepliesController::class, 'destroy'])->name('
 Route::patch('/replies/{reply}', [RepliesController::class, 'update'])->name('replies.update');
 
 // Best reply
-Route::get('/replies/{reply}/best', [BestReplyController::class, 'store'])->name('best_replies.store');
+Route::post('/replies/{reply}/best', [BestReplyController::class, 'store'])->name('best_replies.store');
 
 //Favorite
 Route::post('/replies/{reply}/favorite', [FavoriteController::class, 'store'])->name('favorites.store');
