@@ -32,7 +32,7 @@
             <!-- @can('update',$reply) -->
             <div class="flex justify-between" v-show="!editor" >
                     <div v-if="canMarkAsBestReply">
-                         <button  @click="markAsBestReply" class="p-2 bg-blue-500 rounded-md text-white flex ml-5" type="button" >
+                         <button v-if="!isBest"  @click="markAsBestReply" class="p-2 bg-blue-500 rounded-md text-white flex ml-5" type="button" >
                         Mark As Best Reply
                         </button>
                     </div>
@@ -103,7 +103,7 @@ import moment from 'moment';
            canMarkAsBestReply(){
                let user=window.App.user;
                if(user){
-                   return this.reply.thread.creator.id===window.App.user.id;//check that user's reply or not
+                   return this.reply.thread.creator.id===window.App.user.id;//thread creator can mark best reply
                }else{
                    return false
                }

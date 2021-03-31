@@ -2602,7 +2602,7 @@ __webpack_require__.r(__webpack_exports__);
       var user = window.App.user;
 
       if (user) {
-        return this.reply.thread.creator.id === window.App.user.id; //check that user's reply or not
+        return this.reply.thread.creator.id === window.App.user.id; //thread creator can mark best reply
       } else {
         return false;
       }
@@ -68021,20 +68021,22 @@ var render = function() {
           [
             _vm.canMarkAsBestReply
               ? _c("div", [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "p-2 bg-blue-500 rounded-md text-white flex ml-5",
-                      attrs: { type: "button" },
-                      on: { click: _vm.markAsBestReply }
-                    },
-                    [
-                      _vm._v(
-                        "\n                    Mark As Best Reply\n                    "
+                  !_vm.isBest
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "p-2 bg-blue-500 rounded-md text-white flex ml-5",
+                          attrs: { type: "button" },
+                          on: { click: _vm.markAsBestReply }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    Mark As Best Reply\n                    "
+                          )
+                        ]
                       )
-                    ]
-                  )
+                    : _vm._e()
                 ])
               : _vm._e(),
             _vm._v(" "),
