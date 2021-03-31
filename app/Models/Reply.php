@@ -13,7 +13,7 @@ class Reply extends Model
 
     protected $with = ['favorites', 'owner'];
     //register name for getFavoritedAttribute,getOwnerAttribute function for pass to vue
-    protected $appends = ['favorited'];
+    protected $appends = ['favorited', 'isBest'];
     protected $guarded = [];
 
     protected static function booted()
@@ -59,5 +59,10 @@ class Reply extends Model
     public function isBest()
     {
         return $this->id == $this->thread->best_reply_id;
+    }
+
+    public function getIsBestAttribute()
+    {
+        return $this->isBest();
     }
 }

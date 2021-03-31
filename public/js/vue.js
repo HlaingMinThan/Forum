@@ -1962,7 +1962,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['thread'],
   data: function data() {
     return {
-      replyCount: this.thread.replies.length
+      replyCount: this.thread.replies_count
     };
   },
   methods: {

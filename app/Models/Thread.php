@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Redis;
 class Thread extends Model
 {
     protected $guarded = [];
-    protected $with = ['channel', 'replies', 'creator'];
+    protected $with = ['channel', 'creator'];
     use HasFactory,RecordsActivity,Subscribable,Trending;
 
     public function getRouteKeyName()

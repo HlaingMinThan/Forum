@@ -6,7 +6,7 @@ export default {
     props:['thread'],
     data(){
         return{
-            replyCount:this.thread.replies.length
+            replyCount:this.thread.replies_count
         }
     },
     methods:{
