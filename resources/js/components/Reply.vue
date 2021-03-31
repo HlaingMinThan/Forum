@@ -88,6 +88,7 @@ import moment from 'moment';
             },
             markAsBestReply(){
                 axios.post(`/replies/${this.reply.id}/best`);
+                window.events.$emit("best_reply_selected",this.reply.id);
             }
        },
        computed:{
@@ -110,6 +111,11 @@ import moment from 'moment';
            timesAgo(){
                return moment(this.reply.created_at).fromNow();
            }
+       },
+       created(){
+           window.events.$on("best_reply_selected",id=>{
+               this.isBest=(this.reply.id===id);
+           });
        }
     }
 </script>

@@ -2585,6 +2585,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     markAsBestReply: function markAsBestReply() {
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("/replies/".concat(this.reply.id, "/best"));
+      window.events.$emit("best_reply_selected", this.reply.id);
     }
   },
   computed: {
@@ -2609,6 +2610,13 @@ __webpack_require__.r(__webpack_exports__);
     timesAgo: function timesAgo() {
       return moment__WEBPACK_IMPORTED_MODULE_2___default()(this.reply.created_at).fromNow();
     }
+  },
+  created: function created() {
+    var _this2 = this;
+
+    window.events.$on("best_reply_selected", function (id) {
+      _this2.isBest = _this2.reply.id === id;
+    });
   }
 });
 
@@ -2722,7 +2730,11 @@ var app = new Vue({
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
@@ -2746,19 +2758,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-// import Echo from 'laravel-echo';
-// window.Pusher = require('pusher-js');
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });
+window.events = new vue__WEBPACK_IMPORTED_MODULE_0__.default();
 
 /***/ }),
 
