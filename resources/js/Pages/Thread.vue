@@ -1,8 +1,9 @@
 <script>
 import Replies from "../components/Replies";
 import SubscribeButton from "../components/SubscribeButton";
+import LockThreadButton from "../components/LockThreadButton";
 export default {
-    components:{Replies,SubscribeButton},
+    components:{Replies,SubscribeButton,LockThreadButton},
     props:['thread'],
     data(){
         return{

@@ -32,7 +32,7 @@
                                 </div>
                                 <p class="mt-5">{{$thread->body}}</p>
                             </article>
-                            <Replies @destroy="destroy" @store="store"></Replies>
+                            <Replies @destroy="destroy" @store="store" :lock="{{json_encode($thread->lock)}}"></Replies>
                     </div>
                 </div>
             </div>
@@ -52,14 +52,13 @@
                                     <p v-else class="mt-2">This Thread has no comment yet! Anyone can participate it!</p>
                                     <div class="flex justify-between mt-6">
                                         @auth
-                                        <div>
+                                        <div> 
+                                                                            {{-- passing true false need to json encode --}}
                                             <Subscribe-button :subscribed="{{json_encode(auth()->user()->subscribed($thread))}}"></Subscribe-button>
                                         </div>
                                         <div>
-                                            <form action="{{route('lock_threads.store',[$thread->channel->slug,$thread->slug])}}" method="POST">
-                                                @csrf
-                                                <button class=" font-bold  py-2 px-4 border border-indigo-500  rounded" type="submit">Lock This Thread</button>
-                                            </form>
+                                                            {{-- passing true false need to json encode --}}
+                                            <Lock-thread-button :lock="{{json_encode($thread->lock)}}"></Lock-thread-button>   
                                         </div>
                                         @endauth
                                     </div>

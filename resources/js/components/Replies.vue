@@ -1,6 +1,8 @@
 <template>
     <div id="replies">
-        <New-Reply @store="store"></New-Reply>
+        <New-Reply @store="store" v-if="!lock"></New-Reply>
+        <p v-else class="text-center text-red-600 mt-5 font-semibold">This Thread Has Been Locked By Admin! No More Replies Allowed Yet...</p>
+
         <h2 class="text-2xl ml-2 my-5">Replies</h2>
         <div class="bg-grey-300  border-gray-300">
             <div v-if="allReplies.length">
@@ -20,7 +22,7 @@ import Reply from "./Reply.vue";
 import NewReply from "./NewReply.vue";
 import axios from 'axios';
 export default {
-
+    props:['lock'],
     components:{Reply,NewReply},
     data(){
         return{
@@ -64,6 +66,12 @@ export default {
     },
     created(){
        this.fetchDatas(); //initial fetching replies and pagination datas
+       window.events.$on('lockThread',()=>{
+           this.lock=true;
+       })
+       window.events.$on('unLockThread',()=>{
+           this.lock=false;
+       })
     }
 }
 </script>

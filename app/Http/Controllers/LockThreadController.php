@@ -13,7 +13,15 @@ class LockThreadController extends Controller
 
     public function store($channelSlug, Thread $thread)
     {
-        $thread->lock();
-        return redirect('/threads');
+        if (!$thread->lock) {
+            $thread->lock();
+        }
+    }
+
+    public function destroy($channelSlug, Thread $thread)
+    {
+        if ($thread->lock) {
+            $thread->unLock();
+        }
     }
 }

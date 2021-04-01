@@ -35,6 +35,7 @@ Route::get('/threads/{channel}', [ThreadController::class, 'index'])->name('chan
 
 // Lock Thread
 Route::post('/threads/{channel}/{thread}/lock', [LockThreadController::class, 'store'])->name('lock_threads.store');
+Route::delete('/threads/{channel}/{thread}/lock', [LockThreadController::class, 'destroy'])->name('lock_threads.destroy');
 
 // Reply
 Route::get('/threads/{channel}/{thread}/replies', [RepliesController::class, 'index'])->name('replies.index');

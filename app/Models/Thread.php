@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Redis;
 class Thread extends Model
 {
     protected $guarded = [];
+    protected $casts = [
+        'lock' => 'boolean'
+    ];
     protected $with = ['channel', 'creator'];
     use HasFactory,RecordsActivity,Subscribable,Trending;
 
@@ -104,6 +107,13 @@ class Thread extends Model
     {
         $this->update([
             'lock' => true
+        ]);
+    }
+
+    public function unLock()
+    {
+        $this->update([
+            'lock' => false
         ]);
     }
 }
