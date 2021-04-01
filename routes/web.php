@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BestReplyController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\LockThreadController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\ThreadController;
@@ -31,6 +32,9 @@ Route::post('/threads/store', [ThreadController::class, 'store'])->name('threads
 Route::get('/threads/{channel}/{thread}', [ThreadController::class, 'show'])->name('threads.show');
 Route::delete('/threads/{channel}/{thread}', [ThreadController::class, 'destroy'])->name('threads.destroy');
 Route::get('/threads/{channel}', [ThreadController::class, 'index'])->name('channel.index');
+
+// Lock Thread
+Route::post('/threads/{channel}/{thread}/lock', [LockThreadController::class, 'store'])->name('lock_threads.store');
 
 // Reply
 Route::get('/threads/{channel}/{thread}/replies', [RepliesController::class, 'index'])->name('replies.index');

@@ -56,7 +56,10 @@
                                             <Subscribe-button :subscribed="{{json_encode(auth()->user()->subscribed($thread))}}"></Subscribe-button>
                                         </div>
                                         <div>
-                                            <button class=" font-bold  py-2 px-4 border border-indigo-500  rounded">Lock This Thread</button>
+                                            <form action="{{route('lock_threads.store',[$thread->channel->slug,$thread->slug])}}" method="POST">
+                                                @csrf
+                                                <button class=" font-bold  py-2 px-4 border border-indigo-500  rounded" type="submit">Lock This Thread</button>
+                                            </form>
                                         </div>
                                         @endauth
                                     </div>

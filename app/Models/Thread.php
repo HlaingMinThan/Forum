@@ -99,4 +99,11 @@ class Thread extends Model
             'best_reply_id' => $reply->id
         ]);
     }
+
+    public function lock()
+    {
+        $this->update([
+            'lock' => true
+        ]);
+    }
 }
