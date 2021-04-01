@@ -2193,6 +2193,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     dynamicText: function dynamicText() {
       return this.isLocked ? "unlock" : 'lock';
+    },
+    isAdmin: function isAdmin() {
+      return window.App.user.isAdmin;
     }
   }
 });
@@ -2478,7 +2481,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       allReplies: [],
-      paginationDatas: []
+      paginationDatas: [],
+      isLocked: this.lock
     };
   },
   methods: {
@@ -2527,10 +2531,10 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchDatas(); //initial fetching replies and pagination datas
 
     window.events.$on('lockThread', function () {
-      _this2.lock = true;
+      _this2.isLocked = true;
     });
     window.events.$on('unLockThread', function () {
-      _this2.lock = false;
+      _this2.isLocked = false;
     });
   }
 });
@@ -67580,18 +67584,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "button",
-    {
-      staticClass: " font-bold  py-2 px-4 border border-red-500  rounded",
-      class: {
-        "bg-red-500 text-white": _vm.isLocked,
-        "bg-transparent text-red-700": !_vm.isLocked
-      },
-      on: { click: _vm.toggleLock }
-    },
-    [_vm._v(_vm._s(_vm.dynamicText) + " This Thread")]
-  )
+  return _vm.isAdmin
+    ? _c(
+        "button",
+        {
+          staticClass: " font-bold  py-2 px-4 border border-red-500  rounded",
+          class: {
+            "bg-red-500 text-white": _vm.isLocked,
+            "bg-transparent text-red-700": !_vm.isLocked
+          },
+          on: { click: _vm.toggleLock }
+        },
+        [_vm._v(_vm._s(_vm.dynamicText) + " This Thread")]
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -68012,7 +68018,7 @@ var render = function() {
     "div",
     { attrs: { id: "replies" } },
     [
-      !_vm.lock
+      !_vm.isLocked
         ? _c("New-Reply", { on: { store: _vm.store } })
         : _c(
             "p",

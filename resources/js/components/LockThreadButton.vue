@@ -1,5 +1,5 @@
 <template>
-    <button class=" font-bold  py-2 px-4 border border-red-500  rounded" :class="{'bg-red-500 text-white':isLocked,'bg-transparent text-red-700':!isLocked}" @click="toggleLock">{{dynamicText}} This Thread</button>
+    <button v-if="isAdmin" class=" font-bold  py-2 px-4 border border-red-500  rounded" :class="{'bg-red-500 text-white':isLocked,'bg-transparent text-red-700':!isLocked}" @click="toggleLock">{{dynamicText}} This Thread</button>
 </template>
 
 <script>
@@ -33,6 +33,9 @@ export default {
     computed:{
         dynamicText(){
             return this.isLocked ? "unlock" : 'lock';
+        },
+        isAdmin(){
+            return window.App.user.isAdmin;
         }
     }
 }

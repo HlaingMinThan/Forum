@@ -1,6 +1,6 @@
 <template>
     <div id="replies">
-        <New-Reply @store="store" v-if="!lock"></New-Reply>
+        <New-Reply @store="store" v-if="!isLocked"></New-Reply>
         <p v-else class="text-center text-red-600 mt-5 font-semibold">This Thread Has Been Locked By Admin! No More Replies Allowed Yet...</p>
 
         <h2 class="text-2xl ml-2 my-5">Replies</h2>
@@ -28,6 +28,7 @@ export default {
         return{
             allReplies:[],
             paginationDatas:[],
+            isLocked:this.lock
         }
     },
     methods:{
@@ -67,10 +68,10 @@ export default {
     created(){
        this.fetchDatas(); //initial fetching replies and pagination datas
        window.events.$on('lockThread',()=>{
-           this.lock=true;
+           this.isLocked=true;
        })
        window.events.$on('unLockThread',()=>{
-           this.lock=false;
+           this.isLocked=false;
        })
     }
 }
