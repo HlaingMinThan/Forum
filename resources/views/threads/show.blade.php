@@ -50,8 +50,17 @@
                                     </p>
 
                                     <p v-else class="mt-2">This Thread has no comment yet! Anyone can participate it!</p>
-                                    <Subscribe-button :subscribed="{{json_encode(auth()->user()->subscribed($thread))}}"></Subscribe-button>
-                            </div>
+                                    <div class="flex justify-between mt-6">
+                                        @auth
+                                        <div>
+                                            <Subscribe-button :subscribed="{{json_encode(auth()->user()->subscribed($thread))}}"></Subscribe-button>
+                                        </div>
+                                        <div>
+                                            <button class=" font-bold  py-2 px-4 border border-indigo-500  rounded">Lock This Thread</button>
+                                        </div>
+                                        @endauth
+                                    </div>
+                                </div>
                                 <a href="{{route('threads.index')}}" class="mt-10 w-full px-2 py-2 text-white bg-blue-500 flex justify-center rounded-md focus:bg-blue-600 focus:outline-none">Go Back To Read All Threads</a>
                     </div>
                 </div

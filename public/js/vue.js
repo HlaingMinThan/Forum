@@ -68107,22 +68107,16 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.signedIn
-    ? _c("div", { staticClass: "flex justify-center" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "mt-6     font-bold  py-2 px-4 border border-indigo-500  rounded",
-            class: _vm.dynamicClass,
-            on: { click: _vm.subscribe }
-          },
-          [
-            _vm._v(
-              "\n        " + _vm._s(_vm.dynamicText) + " This Thread\n    "
-            )
-          ]
-        )
-      ])
+    ? _c(
+        "button",
+        {
+          staticClass:
+            " font-bold  py-2 px-4 border border-indigo-500  rounded",
+          class: _vm.dynamicClass,
+          on: { click: _vm.subscribe }
+        },
+        [_vm._v("\n    " + _vm._s(_vm.dynamicText) + " This Thread\n")]
+      )
     : _vm._e()
 }
 var staticRenderFns = []

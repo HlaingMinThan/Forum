@@ -1,9 +1,9 @@
 <template>
-    <div class="flex justify-center" v-if="signedIn">
-        <button @click="subscribe" class="mt-6     font-bold  py-2 px-4 border border-indigo-500  rounded" :class="dynamicClass">
+   
+        <button @click="subscribe" class=" font-bold  py-2 px-4 border border-indigo-500  rounded" v-if="signedIn" :class="dynamicClass">
             {{dynamicText}} This Thread
         </button>
-    </div>
+
 </template>
 
 <script>
