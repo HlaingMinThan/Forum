@@ -1,9 +1,9 @@
 <script>
-    export default {
-        data() {
-            return{
-                showDropdown:false
-            }
-        }
+export default {
+    data() {
+        return {
+            showDropdown: false
+        };
     }
+};
 </script>

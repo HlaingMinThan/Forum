@@ -4,12 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
 
-window.Vue = require('vue').default;
-import VTooltip from 'v-tooltip'
+window.Vue = require("vue").default;
+import VTooltip from "v-tooltip";
 
-Vue.use(VTooltip)
+Vue.use(VTooltip);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21,11 +21,11 @@ Vue.use(VTooltip)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('Avator', require('./components/Avator.vue').default);
-Vue.component('Dropdown', require('./components/Dropdown.vue').default);
-Vue.component('Pagination', require('./components/Pagination.vue').default);
-Vue.component('Notibell', require('./components/Notibell.vue').default);
-Vue.component('Thread', require('./Pages/Thread.vue').default);
+Vue.component("Avator", require("./components/Avator.vue").default);
+Vue.component("Dropdown", require("./components/Dropdown.vue").default);
+Vue.component("Pagination", require("./components/Pagination.vue").default);
+Vue.component("Notibell", require("./components/Notibell.vue").default);
+Vue.component("Thread", require("./Pages/Thread.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -34,5 +34,5 @@ Vue.component('Thread', require('./Pages/Thread.vue').default);
  */
 
 const app = new Vue({
-    el: '#app',
+    el: "#app"
 });
