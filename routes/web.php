@@ -30,6 +30,7 @@ Route::get('/threads', [ThreadController::class, 'index'])->name('threads.index'
 Route::get('/threads/create', [ThreadController::class, 'create'])->name('threads.create');
 Route::post('/threads/store', [ThreadController::class, 'store'])->name('threads.store')->middleware('email-must-verified');
 Route::get('/threads/{channel}/{thread}', [ThreadController::class, 'show'])->name('threads.show');
+Route::patch('/threads/{channel}/{thread}', [ThreadController::class, 'update'])->name('threads.update');
 Route::delete('/threads/{channel}/{thread}', [ThreadController::class, 'destroy'])->name('threads.destroy');
 Route::get('/threads/{channel}', [ThreadController::class, 'index'])->name('channel.index');
 

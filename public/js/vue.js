@@ -1953,6 +1953,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Replies__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Replies */ "./resources/js/components/Replies.vue");
 /* harmony import */ var _components_SubscribeButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/SubscribeButton */ "./resources/js/components/SubscribeButton.vue");
 /* harmony import */ var _components_LockThreadButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/LockThreadButton */ "./resources/js/components/LockThreadButton.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -1977,6 +1980,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     store: function store() {
       this.replyCount++;
+    },
+    update: function update() {
+      var _this = this;
+
+      if (!this.title) {
+        flash.error("please fill in the title input");
+      }
+
+      if (!this.body) {
+        flash.error("please fill in the body input");
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_3___default().patch("/threads/".concat(this.thread.channel.name, "/").concat(this.thread.slug), {
+        'title': this.title,
+        'body': this.body
+      }).then(function () {
+        _this.editor = false;
+      });
     }
   }
 });

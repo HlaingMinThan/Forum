@@ -66,6 +66,16 @@ class ThreadController extends Controller
         return view('threads.show', compact('thread'));
     }
 
+    public function update($channelSlug = null, Thread $thread)
+    {
+        //a user can update only his thread
+        $this->authorize('update', $thread);
+        $thread->update(request()->validate([
+            'title' => ['required', new SpamFree],
+            'body' => ['required', new SpamFree]
+        ]));
+    }
+
     public function destroy($channelSlug = null, Thread $thread)
     {
         //a user can delete only his thread
