@@ -7,19 +7,21 @@ use App\Models\Channel;
 use App\Models\Thread;
 use App\Models\User;
 use App\Rules\SpamFree;
+use Exception;
+use Illuminate\Support\Facades\Http;
 
 class ThreadController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("auth")->except('index', 'show');
+        $this->middleware('auth')->except('index', 'show');
     }
-    
-    public function index($channelSlug=null)
+
+    public function index($channelSlug = null)
     {
-        return view("threads.index", [
-            'threads'=>$this->filterThreads($channelSlug),
-            'trending_threads'=>Thread::getTrendingThreads()
+        return view('threads.index', [
+            'threads' => $this->filterThreads($channelSlug),
+            'trending_threads' => Thread::getTrendingThreads()
         ]);
     }
 
@@ -32,19 +34,27 @@ class ThreadController extends Controller
     {
         // validation
         request()->validate([
-            'title'=>["required",new SpamFree],
-            'body'=>["required",new SpamFree],
-            'channel_id'=>"required|exists:channels,id"
+            'title' => ['required', new SpamFree],
+            'body' => ['required', new SpamFree],
+            'channel_id' => 'required|exists:channels,id'
         ]);
+        //recaptcha server side validation
+        $res = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => '6Le4F5kaAAAAAIhSRzLDnX4H5cyAAgp-uxVQ4vky',
+            'response' => request('g-recaptcha-response')
+        ]);
+        if (!$res->json()['success']) {
+            throw new Exception('Recaptcha validation failed');
+        }
         // store in database
-        $thread=Thread::create([
-            'user_id'=>auth()->id(),
-            'slug'=>Str::slug(request('title')).'_'.uniqid(),
-            'title'=>request("title"),
-            'body'=>request("body"),
-            'channel_id'=>request("channel_id"),
+        $thread = Thread::create([
+            'user_id' => auth()->id(),
+            'slug' => Str::slug(request('title')) . '_' . uniqid(),
+            'title' => request('title'),
+            'body' => request('body'),
+            'channel_id' => request('channel_id'),
         ]);
-        return redirect($thread->path())->with("success", "A Thread Has Been Created");
+        return redirect($thread->path())->with('success', 'A Thread Has Been Created');
     }
 
     public function show($channelSlug, Thread $thread)
@@ -59,42 +69,42 @@ class ThreadController extends Controller
 
         // increment visit count of that thread into redis
         $thread->incVisitors();
-        
-        return view("threads.show", compact('thread'));
+
+        return view('threads.show', compact('thread'));
     }
 
-    public function destroy($channelSlug=null, Thread $thread)
+    public function destroy($channelSlug = null, Thread $thread)
     {
         //a user can delete only his thread
         $this->authorize('update', $thread);
-        
+
         // delete all associate thread's replies and child relations
         foreach ($thread->replies as $reply) {
             $reply->delete();
         }
-        
+
         $thread->delete();
-        return redirect()->route("threads.index");
+        return redirect()->route('threads.index');
     }
 
-    protected function filterThreads($channelSlug=null)
+    protected function filterThreads($channelSlug = null)
     {
         if (!empty($channelSlug)) {
-            $channelId=Channel::whereSlug($channelSlug)->firstOrFail()->id;
-            $threads=Thread::where("channel_id", $channelId)->latest();
+            $channelId = Channel::whereSlug($channelSlug)->firstOrFail()->id;
+            $threads = Thread::where('channel_id', $channelId)->latest();
         } else {
-            $threads=Thread::latest();
+            $threads = Thread::latest();
         }
-        if ($username=request('by')) {
-            $userId=User::where("name", $username)->firstOrFail()->id;
-            $threads=Thread::where("user_id", $userId)->latest();
+        if ($username = request('by')) {
+            $userId = User::where('name', $username)->firstOrFail()->id;
+            $threads = Thread::where('user_id', $userId)->latest();
         }
         if (request('popular')) {
-            $threads = Thread::orderBy("replies_count", "desc");
+            $threads = Thread::orderBy('replies_count', 'desc');
         }
         if (request('unanswered')) {
-            $threads = Thread::where("replies_count", 0);
+            $threads = Thread::where('replies_count', 0);
         }
-        return $threads=$threads->paginate(10);
+        return $threads = $threads->paginate(10);
     }
 }
