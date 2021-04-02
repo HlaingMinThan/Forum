@@ -1965,7 +1965,10 @@ __webpack_require__.r(__webpack_exports__);
   props: ['thread'],
   data: function data() {
     return {
-      replyCount: this.thread.replies_count
+      replyCount: this.thread.replies_count,
+      editor: false,
+      title: this.thread.title,
+      body: this.thread.body
     };
   },
   methods: {

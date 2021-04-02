@@ -1,13 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-       
     </x-slot>
     <Thread inline-template :thread="{{$thread}}">
         <div class="p-12 flex">
             <div class="w-2/4 mr-4">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                            <article class="m-3">
                                 <div class="flex justify-between">
                                         <div class="flex items-center">
                                             <div>
@@ -19,19 +17,40 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <h2 class="font-semibold text-3xl text-gray-800 text-center">{{$thread->title}}</h2>
+                                        
                                         @can('update',$thread)
-                                        <form action='{{route("threads.destroy",[$thread->channel->slug,$thread->id])}}' method="POST">
+                                            <button @click="editor=true" v-if="!editor" class="px-2 border border-gray-200 font-bold rounded-md  " type="submit" >
+                                                ...
+                                            </button>
+                                        @endcan
+                                </div>
+                                <div class="mt-5" v-if="!editor">
+                                    <h2 class="font-semibold text-3xl text-gray-800 ">{{$thread->title}}</h2>
+                                    <p class="mt-5">{{$thread->body}}</p>
+                                </div>
+                                <div class="mt-5" v-if="editor">
+                                    <input type="text" class="w-full "  v-model="title" >
+                                   <textarea name="" id="" class="w-full mt-5" rows="10" v-model="body"></textarea>
+                                    <div class="flex justify-between  p-2">
+                                        <div class="flex">
+                                            <button @click="editor=false" class="p-2 bg-gray-200 rounded-md flex" type="submit" >
+                                                cancel
+                                            </button>
+                                            <button @click="update" class="ml-5 p-2 bg-green-500 text-white rounded-md flex" type="submit" >
+                                                Update
+                                            </button>
+                                        </div>
+                                        @can('update',$thread)
+                                        <form action='{{route("threads.destroy",[$thread->channel->slug,$thread->slug])}}' method="POST">
                                             @method("DELETE")
                                             @csrf
-                                            <button class="p-2 bg-gray-200 rounded-md flex ml-5" type="submit" >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"/></svg>
+                                            <button class="p-2 bg-red-600 text-white rounded-md flex" type="submit" >
+                                                Delete
                                             </button>
                                         </form>
                                         @endcan
+                                    </div>
                                 </div>
-                                <p class="mt-5">{{$thread->body}}</p>
-                            </article>
                             <Replies @destroy="destroy" @store="store" :lock="{{json_encode($thread->lock)}}"></Replies>
                     </div>
                 </div>

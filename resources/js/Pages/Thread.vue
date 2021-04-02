@@ -7,7 +7,10 @@ export default {
     props:['thread'],
     data(){
         return{
-            replyCount:this.thread.replies_count
+            replyCount:this.thread.replies_count,
+            editor:false,
+            title:this.thread.title,
+            body:this.thread.body
         }
     },
     methods:{
