@@ -30,8 +30,6 @@ class AppServiceProvider extends ServiceProvider
         // });
 
         //      second way
-        View::share("channels",Channel::all());// that is a little trick // shared to every single view
-
-   
+        View::share('channels', Channel::all());// that is a little trick // shared to every single view
     }
 }

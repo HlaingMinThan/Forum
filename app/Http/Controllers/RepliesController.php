@@ -50,6 +50,11 @@ class RepliesController extends Controller
         // a user can delete only his reply
         $this->authorize('update', $reply);
 
+        //controller level
+        // $reply->thread()->where('best_reply_id', $reply->id)->update([
+        //     'best_reply_id' => null
+        // ]);
+
         // when delete a reply ,delete all assosiate relation of that reply's favorites data
         $reply->favorites->each->delete();
         $reply->delete();
