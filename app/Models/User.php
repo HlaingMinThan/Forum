@@ -97,6 +97,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getAvatorPathAttribute($value)
     {
         //check profile picture exists or not
-        return isset($value) ? "/{$value}" : '/avators/user.svg';
+        return isset($value) ? "/{$value}" : '/images/user.svg';
     }
 }
