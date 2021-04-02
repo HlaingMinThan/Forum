@@ -1,3 +1,6 @@
+@section('head')
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+@endsection
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
@@ -35,7 +38,11 @@
                             <p class="text-base  text-red-400" id="result">{{$message}}</p>
                             @enderror
                             <div class="mb-6">
-                                <button type="submit" class="w-full px-3 py-4 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none">Add Thread</button>
+                                <div class="g-recaptcha" data-sitekey="6Le4F5kaAAAAAG4Vy7K_yQLDzeUkJvGS1izSLztF"></div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <button  class="w-full px-3 py-4 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none">Add Thread</button>
                             </div>
                             <p class="text-base text-center text-gray-400" id="result">
                             </p>

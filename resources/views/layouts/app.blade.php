@@ -15,6 +15,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        @yield('head')
         <script>
              window.App={!!json_encode([
                 'signedIn'=>auth()->check(),
