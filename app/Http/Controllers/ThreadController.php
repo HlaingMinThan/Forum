@@ -6,9 +6,8 @@ use Illuminate\Support\Str;
 use App\Models\Channel;
 use App\Models\Thread;
 use App\Models\User;
+use App\Rules\Recaptcha;
 use App\Rules\SpamFree;
-use Exception;
-use Illuminate\Support\Facades\Http;
 
 class ThreadController extends Controller
 {
@@ -36,16 +35,10 @@ class ThreadController extends Controller
         request()->validate([
             'title' => ['required', new SpamFree],
             'body' => ['required', new SpamFree],
-            'channel_id' => 'required|exists:channels,id'
+            'channel_id' => 'required|exists:channels,id',
+            'g-recaptcha-response' => [new Recaptcha, 'required', ]
         ]);
-        //recaptcha server side validation
-        $res = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => '6Le4F5kaAAAAAIhSRzLDnX4H5cyAAgp-uxVQ4vky',
-            'response' => request('g-recaptcha-response')
-        ]);
-        if (!$res->json()['success']) {
-            throw new Exception('Recaptcha validation failed');
-        }
+
         // store in database
         $thread = Thread::create([
             'user_id' => auth()->id(),

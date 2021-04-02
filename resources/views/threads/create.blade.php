@@ -40,7 +40,9 @@
                             <div class="mb-6">
                                 <div class="g-recaptcha" data-sitekey="6Le4F5kaAAAAAG4Vy7K_yQLDzeUkJvGS1izSLztF"></div>
                             </div>
-                            
+                            @error('g-recaptcha-response')
+                            <p class="text-base  text-red-400" id="result">{{$message}}</p>
+                            @enderror
                             <div class="mb-6">
                                 <button  class="w-full px-3 py-4 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none">Add Thread</button>
                             </div>
