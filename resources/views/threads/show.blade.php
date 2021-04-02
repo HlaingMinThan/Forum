@@ -33,7 +33,7 @@
                                    <textarea name="" id="" class="w-full mt-5" rows="10" v-model="body"></textarea>
                                     <div class="flex justify-between  p-2">
                                         <div class="flex">
-                                            <button @click="editor=false" class="p-2 bg-gray-200 rounded-md flex" type="submit" >
+                                            <button @click="cancel" class="p-2 bg-gray-200 rounded-md flex" type="submit" >
                                                 cancel
                                             </button>
                                             <button @click="update" class="ml-5 p-2 bg-green-500 text-white rounded-md flex" type="submit" >

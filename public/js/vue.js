@@ -1998,6 +1998,12 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {
         _this.editor = false;
       });
+    },
+    cancel: function cancel() {
+      this.editor = false; //resetting to default data
+
+      this.title = this.thread.title;
+      this.body = this.thread.body;
     }
   }
 });
@@ -2673,6 +2679,11 @@ __webpack_require__.r(__webpack_exports__);
         });
         _this.body = "";
       });
+    },
+    cancel: function cancel() {
+      this.editor = false; //resetting to default data
+
+      this.body = this.reply.body;
     },
     destroy: function destroy() {
       axios__WEBPACK_IMPORTED_MODULE_1___default().delete("/replies/".concat(this.reply.id)); //  $(this.$el).fadeOut(300);//fadeout and remove ui from user'eye with jquery
@@ -68199,11 +68210,7 @@ var render = function() {
                     {
                       staticClass:
                         "p-2 bg-gray-100 rounded-md text-gray-900 border border-4 border-gray-700 flex ml-5",
-                      on: {
-                        click: function($event) {
-                          _vm.editor = false
-                        }
-                      }
+                      on: { click: _vm.cancel }
                     },
                     [_vm._v("cancel")]
                   )

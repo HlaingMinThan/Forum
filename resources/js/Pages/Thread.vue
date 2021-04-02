@@ -34,6 +34,12 @@ export default {
             }).then(()=>{
                 this.editor=false;
             });
+        },
+        cancel(){
+            this.editor=false;
+            //resetting to default data
+            this.title=this.thread.title;
+            this.body=this.thread.body;
         }
     }
 }

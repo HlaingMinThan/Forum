@@ -22,7 +22,7 @@
                     <textarea name="" id="" class="w-full" rows="5" v-model="body"></textarea>
                     <div class="flex">
                         <button @click="update" class="p-2 bg-blue-500 rounded-md text-white flex ml-5">update</button>
-                        <button @click="editor=false" class="p-2 bg-gray-100 rounded-md text-gray-900 border border-4 border-gray-700 flex ml-5">cancel</button>
+                        <button @click="cancel" class="p-2 bg-gray-100 rounded-md text-gray-900 border border-4 border-gray-700 flex ml-5">cancel</button>
                     </div>
                 </div>
                 <div v-if="!editor">
@@ -80,6 +80,11 @@ import moment from 'moment';
                     window.flash.error('Sorry,We don\'t Allow Spam','',{timeOut:1000});
                     this.body="";
                 });
+            },
+            cancel(){
+                this.editor=false;
+                //resetting to default data
+                this.body=this.reply.body;
             },
             destroy(){
                  axios.delete(`/replies/${this.reply.id}`);
