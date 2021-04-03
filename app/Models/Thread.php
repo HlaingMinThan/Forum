@@ -118,4 +118,9 @@ class Thread extends Model
             'lock' => false
         ]);
     }
+
+    public function toSearchableArray()
+    {
+        return $this->toArray() + ['path' => $this->path()];
+    }
 }

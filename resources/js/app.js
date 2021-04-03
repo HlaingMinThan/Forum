@@ -8,8 +8,11 @@ require("./bootstrap");
 
 window.Vue = require("vue").default;
 import VTooltip from "v-tooltip";
+import InstantSearch from "vue-instantsearch";
 
 Vue.use(VTooltip);
+
+Vue.use(InstantSearch);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -22,6 +25,7 @@ Vue.use(VTooltip);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component("Avator", require("./components/Avator.vue").default);
+Vue.component("Search", require("./components/Search.vue").default);
 Vue.component("Dropdown", require("./components/Dropdown.vue").default);
 Vue.component("Pagination", require("./components/Pagination.vue").default);
 Vue.component("Notibell", require("./components/Notibell.vue").default);

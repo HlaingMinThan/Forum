@@ -29,7 +29,10 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "algoliasearch": "^4.8.6",
+        "instantsearch.css": "^7.4.5",
         "moment": "^2.29.1",
+        "vue-instantsearch": "^3.6.0",
         "vue-mention": "^1.0.0"
     }
 }
