@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <Thread inline-template :thread="{{$thread}}">
+    <Thread inline-template :thread="{{$thread}}"  v-cloak>
         <div class="p-12 flex">
             <div class="w-2/4 mr-4">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

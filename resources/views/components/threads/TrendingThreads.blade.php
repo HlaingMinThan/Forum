@@ -1,3 +1,4 @@
+@if(count($trendingThreads))
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 font-semibold">
     <h1 class=" text-2xl text-center ">Current Trending Threads</h1>
     <ul class="list-disc list-inside mt-5">
@@ -6,3 +7,4 @@
         @endforeach
     </ul>
 </div>
+@endif

@@ -1,3 +1,3 @@
-<Dropdown inline-template>
+<Dropdown inline-template v-cloak>
   {{$slot}}
 </Dropdown>

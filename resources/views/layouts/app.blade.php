@@ -23,6 +23,9 @@
             ])!!}
         </script>
     </head>
+    <style>
+     [v-cloak]  { display:none; }
+    </style>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100" id="app">
             @include('layouts.navigation')

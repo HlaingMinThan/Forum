@@ -26,9 +26,7 @@
             </div>
 
             {{-- trending section --}}
-            @if(count($trending_threads))
-            <x-threads.TrendingThreads :trendingThreads="$trending_threads" />
-            @endif
+            <x-threads.TrendingThreads/>
         </div>
     </div>
 </x-app-layout>

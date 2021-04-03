@@ -20,7 +20,6 @@ class ThreadController extends Controller
     {
         return view('threads.index', [
             'threads' => $this->filterThreads($channelSlug),
-            'trending_threads' => Thread::getTrendingThreads()
         ]);
     }
 

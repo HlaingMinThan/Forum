@@ -36,21 +36,35 @@
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a href="{{route('threads.index')}}" class="text-lg text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">All Threads</a>
               <x-dropdown>
-            <div class="ml-3 relative" >
-                <div class=" space-x-4">
-                      <button type="button" class="text-lg text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" id="user-menu" aria-expanded="false" aria-haspopup="true" @click="showDropdown=!showDropdown">
-                        Browse Threads
-                      </button>
+                <div class="ml-3 relative" >
+                    <div class=" space-x-4">
+                          <button type="button" class="text-lg text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" id="user-menu" aria-expanded="false" aria-haspopup="true" @click="showDropdown=!showDropdown">
+                            Browse Threads
+                          </button>
+                    </div>
+                    <div v-show="showDropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                          @auth
+                            <x-dropdown-link class="text-center" href="/threads?by={{auth()->user()->name}}">MY Questions</x-dropdown-link>
+                          @endauth
+                            <x-dropdown-link href="/threads?popular=1" class="text-center">Popular Threads</x-dropdown-link>
+                            <x-dropdown-link href="/threads?unanswered=1" class="text-center">Unanswered Threads</x-dropdown-link>
+                    </div>
                 </div>
-                <div v-show="showDropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                      @auth
-                        <x-dropdown-link class="text-center" href="/threads?by={{auth()->user()->name}}">MY Questions</x-dropdown-link>
-                      @endauth
-                        <x-dropdown-link href="/threads?popular=1" class="text-center">Popular Threads</x-dropdown-link>
-                        <x-dropdown-link href="/threads?unanswered=1" class="text-center">Unanswered Threads</x-dropdown-link>
+              </x-dropdown>
+              <x-dropdown>
+                <div class="ml-3 relative" >
+                    <div class=" space-x-4">
+                          <button type="button" class="text-lg text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" id="user-menu" aria-expanded="false" aria-haspopup="true" @click="showDropdown=!showDropdown">
+                            Channels
+                          </button>
+                    </div>
+                    <div v-show="showDropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                          @foreach ($channels as $channel)
+                          <x-dropdown-link class="text-center" href="{{$channel->path()}}">{{$channel->name}}</x-dropdown-link>
+                          @endforeach
+                    </div>
                 </div>
-            </div>
-          </x-dropdown>
+              </x-dropdown>
             @auth
               <a href="{{route('threads.create')}}" class="text-lg text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">New Thread</a>
             @endauth
