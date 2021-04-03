@@ -6,6 +6,7 @@ use App\Http\Controllers\LockThreadController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\ThreadsSearchController;
 use App\Http\Controllers\ThreadSubscriptionController;
 use App\Http\Controllers\UserAvatorController;
 use App\Http\Controllers\UserNotificationsController;
@@ -27,6 +28,8 @@ Route::get('/', function () {
 });
 // Thread
 Route::get('/threads', [ThreadController::class, 'index'])->name('threads.index');
+//search thread
+Route::get('/threads/search', [ThreadsSearchController::class, 'index'])->name('threadsSearch.index');
 Route::get('/threads/create', [ThreadController::class, 'create'])->name('threads.create');
 Route::post('/threads/store', [ThreadController::class, 'store'])->name('threads.store')->middleware('email-must-verified');
 Route::get('/threads/{channel}/{thread}', [ThreadController::class, 'show'])->name('threads.show');

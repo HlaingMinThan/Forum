@@ -16,10 +16,13 @@
         </div>
         <div>
             {{-- search box section --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 font-semibold">
-                <input type="search" placeholder="search anything u want..."
-                    class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
-                    id="">
+            <div class=" bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 font-semibold">
+                <form action="/threads/search" class="flex">
+                    <input name="q" type="search" placeholder="search anything u want..."
+                        class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                        id="">
+                        <button class="p-2 bg-gray-200 rounded-md">submit</button>
+                </form>
             </div>
 
             {{-- trending section --}}

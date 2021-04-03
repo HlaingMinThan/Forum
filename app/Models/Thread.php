@@ -10,9 +10,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Redis;
+use Laravel\Scout\Searchable;
 
 class Thread extends Model
 {
+    use Searchable;
     protected $guarded = [];
     protected $casts = [
         'lock' => 'boolean'
