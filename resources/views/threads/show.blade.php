@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="mt-5" v-if="!editor">
                                     <h2 class="font-semibold text-3xl text-blue-600" v-text="title"></h2>
-                                    <p class="mt-5 text-lg" v-text="body">{{$thread->body}}</p>
+                                    <p class="mt-5 text-lg" v-html="body"></p>
                                 </div>
                                 <div class="mt-5" v-if="editor">
                                     <input type="text" class="w-full "  v-model="title" >

@@ -9,5 +9,5 @@
             <a href="{{$path}}" class="text-lg">Replies-{{$replyCount}}</a>
         </div>
     </div>
-    <p class="mt-5">{{$body}}</p>
+    <p class="mt-5">{!!$body!!}</p>
 </article>
