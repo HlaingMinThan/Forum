@@ -30,7 +30,7 @@
                 </div>
                 
             </div>
-            <p class="mt-3">{{substr(strip_tags($thread->body),0,300)}}...</p> 
+            <p class="mt-3">{!!substr($thread->body,0,300)!!}</p> 
             <div class="flex justify-end mt-5">
                 <div class="mr-5">
                     <a href="{{$thread->path()}}" class="text-lg">Replies-<span class="text-green-500 font-bold">{{$thread->replies_count}}</span></a>

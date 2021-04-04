@@ -22,7 +22,7 @@
                         <h1 class="text-2xl my-6 ml-4 text-blue-400 font-semibold text-right">On {{$date}}</h1>
                         @foreach($activitiesByDate as $activity)
                             @if($activity->type==="created_thread")
-                                <x-profiles.Thread 
+                                <x-activies.Thread 
                                     :title="$activity->subject->title"
                                     :body="$activity->subject->body" 
                                     :replyCount="$activity->subject->replies->count()" 
@@ -31,13 +31,13 @@
                                 />
                             @endif
                             @if($activity->type==="created_reply")
-                                <x-profiles.Reply
+                                <x-activies.Reply
                                     :reply="$activity->subject"
                                     :path="$activity->subject->path()"
                                 />
                             @endif
                             @if($activity->type==="created_favorite")
-                                <x-profiles.Favorite
+                                <x-activies.Favorite
                                     :replyBody="$activity->subject->favorited->body"
                                     :path="$activity->subject->favorited->path()"
                                 />
