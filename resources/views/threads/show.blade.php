@@ -8,16 +8,11 @@
                     <div class="p-6 bg-white border-b border-gray-200">
                                 <div class="flex justify-between">
                                         <div class="flex items-center">
-                                            <div>
-                                                <img src="{{asset($thread->creator->avator())}}" class="mr-3 rounded-full" width="40" height="40">
-                                            </div>
-                                            <div>
-                                                <a href="{{route('profiles.show',$thread->creator->name)}}" class="font-bold text-blue-500 underline ">
-                                                    {{$thread->creator->name}}
-                                                </a>
-                                            </div>
+                                            <img src="{{asset($thread->creator->avator())}}" class="mr-3 rounded-full" width="40" height="40">
+                                            <a href="{{route('profiles.show',$thread->creator->name)}}" class="font-bold">
+                                                {{$thread->creator->name}}
+                                            </a>
                                         </div>
-                                        
                                         @can('update',$thread)
                                             <button @click="editor=true" v-if="!editor" class="px-2 border border-gray-200 font-bold rounded-md  " type="submit" >
                                                 ...
@@ -25,8 +20,8 @@
                                         @endcan
                                 </div>
                                 <div class="mt-5" v-if="!editor">
-                                    <h2 class="font-semibold text-3xl text-gray-800" v-text="title"></h2>
-                                    <p class="mt-5" v-text="body">{{$thread->body}}</p>
+                                    <h2 class="font-semibold text-3xl text-blue-600" v-text="title"></h2>
+                                    <p class="mt-5 text-lg" v-text="body">{{$thread->body}}</p>
                                 </div>
                                 <div class="mt-5" v-if="editor">
                                     <input type="text" class="w-full "  v-model="title" >

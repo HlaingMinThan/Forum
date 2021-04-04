@@ -21,7 +21,7 @@
                     <input name="q" type="search" placeholder="search anything u want..."
                         class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                         id="">
-                        <button class="p-2 bg-gray-200 rounded-md">submit</button>
+                        <button class="p-2 bg-blue-500 text-white ml-3 rounded-md">submit</button>
                 </form>
             </div>
 

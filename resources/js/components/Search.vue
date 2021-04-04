@@ -13,8 +13,7 @@ export default {
 </script>
 
 <style>
-body {
-    font-family: sans-serif;
-    padding: 1em;
+.ais-Highlight-highlighted {
+    background-color: yellow;
 }
 </style>
