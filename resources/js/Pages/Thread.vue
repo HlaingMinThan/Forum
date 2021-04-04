@@ -3,8 +3,10 @@ import Replies from "../components/Replies";
 import SubscribeButton from "../components/SubscribeButton";
 import LockThreadButton from "../components/LockThreadButton";
 import axios from "axios";
+import Editor from "@tinymce/tinymce-vue";
+
 export default {
-    components: { Replies, SubscribeButton, LockThreadButton },
+    components: { Replies, SubscribeButton, LockThreadButton, Editor },
     props: ["thread"],
     data() {
         return {

@@ -1,11 +1,11 @@
 <template>
     <div id="replies">
+        <h2 class="text-2xl text-green-500 ml-2 my-5">Replies</h2>
         <New-Reply @store="store" v-if="!isLocked"></New-Reply>
         <p v-else class="text-center text-red-600 mt-5 font-semibold">
             This Thread Has Been Locked By Admin! No More Replies Allowed Yet...
         </p>
 
-        <h2 class="text-2xl ml-2 my-5">Replies</h2>
         <div class="bg-grey-300  border-gray-300">
             <div v-if="allReplies.length">
                 <div v-for="reply in allReplies" :key="reply.id">

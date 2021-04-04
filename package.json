@@ -29,6 +29,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@tinymce/tinymce-vue": "^3.2.8",
         "algoliasearch": "^4.8.6",
         "instantsearch.css": "^7.4.5",
         "moment": "^2.29.1",

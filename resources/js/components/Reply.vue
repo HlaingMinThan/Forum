@@ -2,7 +2,7 @@
     <div
         class=" p-5 border border-b-1"
         :id="`reply_${reply.id}`"
-        :class="{ 'bg-blue-100': isBest, 'bg-gray-100': !isBest }"
+        :class="{ 'bg-blue-100': isBest, 'bg-white': !isBest }"
     >
         <div class="flex justify-between items-center">
             <div class="flex items-center">
@@ -33,13 +33,14 @@
         <div>
             <div>
                 <div v-if="editor" class="my-5">
-                    <textarea
-                        name=""
-                        id=""
-                        class="w-full"
-                        rows="5"
+                    <Editor
                         v-model="body"
-                    ></textarea>
+                        api-key="2rg2ynlbqzfn9tenfhz2tu6gnxeg9euzz4o400ubvjgaytm3"
+                        plugins="codesample"
+                        toolbar="codesample"
+                        :init="{ height: 500, menubar: false }"
+                        codesample_global_prismjs="true"
+                    />
                     <div class="flex">
                         <button
                             @click="update"
@@ -56,10 +57,10 @@
                     </div>
                 </div>
                 <div v-if="!editor">
-                    <p class="m-3" v-html="body"></p>
+                    <p class="m-3 p-1 text-lg" v-html="body"></p>
                 </div>
             </div>
-            <!-- @can('update',$reply) -->
+            <!-- authorization -->
             <div class="flex justify-between" v-show="!editor">
                 <div v-if="canMarkAsBestReply">
                     <button
@@ -88,17 +89,17 @@
                     </button>
                 </div>
             </div>
-            <!-- @endcan -->
         </div>
     </div>
 </template>
 <script>
+import Editor from "@tinymce/tinymce-vue";
 import Favorite from "./Favorite.vue";
 import axios from "axios";
 import moment from "moment";
 export default {
     props: ["reply"],
-    components: { Favorite },
+    components: { Favorite, Editor },
     data() {
         return {
             isBest: this.reply.isBest,

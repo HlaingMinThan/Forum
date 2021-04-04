@@ -25,26 +25,33 @@
                                 </div>
                                 <div class="mt-5" v-if="editor">
                                     <input type="text" class="w-full "  v-model="title" >
-                                   <textarea name="" id="" class="w-full mt-5" rows="10" v-model="body"></textarea>
-                                    <div class="flex justify-between  p-2">
-                                        <div class="flex">
-                                            <button @click="cancel" class="p-2 bg-gray-200 rounded-md flex" type="submit" >
-                                                cancel
-                                            </button>
-                                            <button @click="update" class="ml-5 p-2 bg-green-500 text-white rounded-md flex" type="submit" >
-                                                Update
-                                            </button>
-                                        </div>
-                                        @can('update',$thread)
-                                        <form action='{{route("threads.destroy",[$thread->channel->slug,$thread->slug])}}' method="POST">
-                                            @method("DELETE")
-                                            @csrf
-                                            <button class="p-2 bg-red-600 text-white rounded-md flex" type="submit" >
-                                                Delete
-                                            </button>
-                                        </form>
-                                        @endcan
+                                    <Editor
+                                        v-model="body"
+                                        api-key="2rg2ynlbqzfn9tenfhz2tu6gnxeg9euzz4o400ubvjgaytm3"
+                                        plugins="codesample"
+                                        toolbar="codesample"
+                                        codesample_global_prismjs="true"
+                                        :init="{height:500}"
+                                    />
+                                </div>
+                                <div class="flex justify-between  p-2" v-if="editor">
+                                    <div class="flex">
+                                        <button @click="cancel" class="p-2 bg-gray-200 rounded-md flex" type="submit" >
+                                            cancel
+                                        </button>
+                                        <button @click="update" class="ml-5 p-2 bg-green-500 text-white rounded-md flex" type="submit" >
+                                            Update
+                                        </button>
                                     </div>
+                                    @can('update',$thread)
+                                    <form action='{{route("threads.destroy",[$thread->channel->slug,$thread->slug])}}' method="POST">
+                                        @method("DELETE")
+                                        @csrf
+                                        <button class="p-2 bg-red-600 text-white rounded-md flex" type="submit" >
+                                            Delete
+                                        </button>
+                                    </form>
+                                    @endcan
                                 </div>
                             <Replies @destroy="destroy" @store="store" :lock="{{json_encode($thread->lock)}}"></Replies>
                     </div>

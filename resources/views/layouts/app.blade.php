@@ -13,8 +13,9 @@
         <!-- Styles -->
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         {{-- prism.js for highlight --}}
-        <link rel="stylesheet" href="/css/prism.css">
-        <script src="/js/prism.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/prismjs/themes/prism.css" />
+    <script src="https://unpkg.com/prismjs"></script>
+        
         {{-- tinymce --}}
         <script src="https://cdn.tiny.cloud/1/2rg2ynlbqzfn9tenfhz2tu6gnxeg9euzz4o400ubvjgaytm3/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
@@ -24,8 +25,7 @@
               toolbar: 'codesample',
            });
           </script>
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+
         @yield('head')
         <script>
              window.App={!!json_encode([
@@ -70,5 +70,6 @@
             }
         </script>
         <script src="{{asset('js/vue.js')}}"></script>
+
     </body>
 </html>

@@ -6,15 +6,16 @@
         <div v-if="signedIn">
             <div class="my-6">
                 <Mentionable :keys="['@']" :items="mapUsernames" offset="6">
-                    <textarea
-                        required
+                    <Editor
                         v-model="body"
-                        rows="5"
-                        name="body"
-                        id="message"
-                        placeholder="Your Can Participate"
-                        class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                        api-key="2rg2ynlbqzfn9tenfhz2tu6gnxeg9euzz4o400ubvjgaytm3"
+                        plugins="codesample"
+                        toolbar="codesample"
+                        codesample_global_prismjs="true"
+                        :init="{ menubar: false }"
+                        placeholder="Come on,You Can Participate in it.."
                     />
+                    <!-- wisywyg editor tinymce provided -->
                 </Mentionable>
             </div>
             <div class="mb-6">
@@ -36,10 +37,11 @@
 </template>
 
 <script>
+import Editor from "@tinymce/tinymce-vue";
 import axios from "axios";
 import { Mentionable } from "vue-mention";
 export default {
-    components: { Mentionable },
+    components: { Mentionable, Editor },
     data() {
         return {
             usernames: [],
